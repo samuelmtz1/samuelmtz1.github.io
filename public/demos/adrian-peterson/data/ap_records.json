@@ -1,0 +1,62 @@
+[
+ {
+  "id": "rank_yds",
+  "label": "Lugar histórico en yardas por tierra",
+  "value": "5º",
+  "detail": "14,918 yds; solo lo superan Smith, Payton, Gore y Sanders"
+ },
+ {
+  "id": "game296",
+  "label": "Yardas en un partido",
+  "value": "296",
+  "detail": "vs. Chargers, 4 nov 2007; récord NFL vigente"
+ },
+ {
+  "id": "s2097",
+  "label": "Yardas en 2012",
+  "value": "2,097",
+  "detail": "2ª mejor temporada de la historia, a 9 del récord de Dickerson"
+ },
+ {
+  "id": "month861",
+  "label": "Yardas en diciembre de 2012",
+  "value": "861",
+  "detail": "El mejor mes de un corredor en la historia de la NFL"
+ },
+ {
+  "id": "eight",
+  "label": "Yardas en 8 partidos seguidos",
+  "value": "1,322",
+  "detail": "Récord NFL"
+ },
+ {
+  "id": "td60",
+  "label": "TD de 60+ yardas",
+  "value": "13",
+  "detail": "Récord NFL de carrera"
+ },
+ {
+  "id": "teams6",
+  "label": "Equipos con TD por tierra",
+  "value": "6",
+  "detail": "Primer jugador en la historia en lograrlo"
+ },
+ {
+  "id": "lastmvp",
+  "label": "Último MVP que no es QB",
+  "value": "2012",
+  "detail": "Ningún no-QB lo ha ganado desde entonces"
+ },
+ {
+  "id": "k10",
+  "label": "Llegada a 10,000 yds",
+  "value": "3º",
+  "detail": "El tercero más rápido de la historia (2013)"
+ },
+ {
+  "id": "acl",
+  "label": "Del ACL roto al MVP",
+  "value": "8 meses",
+  "detail": "Volvió en la semana 1 de 2012 y terminó con 2,097 yds"
+ }
+]

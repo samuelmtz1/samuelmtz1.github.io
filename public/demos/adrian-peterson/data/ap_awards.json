@@ -1,0 +1,149 @@
+[
+ {
+  "id": "a01",
+  "year": 2003,
+  "level": "Preparatoria",
+  "award": "Hall Trophy",
+  "detail": "Jugador Nacional del Año del U.S. Army"
+ },
+ {
+  "id": "a02",
+  "year": 2003,
+  "level": "Preparatoria",
+  "award": "Prospecto #1 del país",
+  "detail": "Rivals.com y College Football News"
+ },
+ {
+  "id": "a03",
+  "year": 2004,
+  "level": "Preparatoria",
+  "award": "U.S. Army All-American Bowl",
+  "detail": "95 yds y 2 TD en 9 acarreos; ahí anunció que iría a Oklahoma"
+ },
+ {
+  "id": "a04",
+  "year": 2004,
+  "level": "College",
+  "award": "Subcampeón del Heisman",
+  "detail": "Primer freshman en quedar 2º (997 puntos)"
+ },
+ {
+  "id": "a05",
+  "year": 2004,
+  "level": "College",
+  "award": "All-American unánime",
+  "detail": "Primer freshman de Oklahoma en el primer equipo de AP"
+ },
+ {
+  "id": "a06",
+  "year": 2004,
+  "level": "College",
+  "award": "Jim Brown Trophy",
+  "detail": "Mejor corredor del país; finalista del Doak Walker"
+ },
+ {
+  "id": "a07",
+  "year": 2004,
+  "level": "College",
+  "award": "Novato Ofensivo del Año del Big 12",
+  "detail": "También Recién Llegado Ofensivo del Año"
+ },
+ {
+  "id": "a08",
+  "year": 2006,
+  "level": "College",
+  "award": "3× primer equipo All-Big 12",
+  "detail": "2004, 2005 y 2006"
+ },
+ {
+  "id": "a09",
+  "year": 2007,
+  "level": "NFL",
+  "award": "Draft: #7 global",
+  "detail": "Minnesota Vikings; primer RB elegido"
+ },
+ {
+  "id": "a10",
+  "year": 2007,
+  "level": "NFL",
+  "award": "Novato Ofensivo del Año (AP)",
+  "detail": "1,341 yds y récord de 296 yds en un partido"
+ },
+ {
+  "id": "a11",
+  "year": 2007,
+  "level": "NFL",
+  "award": "MVP del Pro Bowl",
+  "detail": "129 yds y 2 TD en el juego de febrero de 2008"
+ },
+ {
+  "id": "a12",
+  "year": 2008,
+  "level": "NFL",
+  "award": "All-Pro 1er equipo · Bert Bell",
+  "detail": "Campeón de yardas con 1,760"
+ },
+ {
+  "id": "a13",
+  "year": 2009,
+  "level": "NFL",
+  "award": "All-Pro 1er equipo",
+  "detail": "Líder de la liga con 18 TD por tierra"
+ },
+ {
+  "id": "a14",
+  "year": 2012,
+  "level": "NFL",
+  "award": "MVP de la NFL",
+  "detail": "El último no-QB en ganarlo"
+ },
+ {
+  "id": "a15",
+  "year": 2012,
+  "level": "NFL",
+  "award": "Jugador Ofensivo del Año · Bert Bell",
+  "detail": "2,097 yds tras romperse el ACL en 2011"
+ },
+ {
+  "id": "a16",
+  "year": 2013,
+  "level": "NFL",
+  "award": "#1 del NFL Top 100",
+  "detail": "Votado por los propios jugadores"
+ },
+ {
+  "id": "a17",
+  "year": 2015,
+  "level": "NFL",
+  "award": "All-Pro 1er equipo",
+  "detail": "Campeón de yardas (1,485) y TD (11) a los 30 años"
+ },
+ {
+  "id": "a18",
+  "year": 2019,
+  "level": "NFL",
+  "award": "Art Rooney Award",
+  "detail": "Premio a la deportividad"
+ },
+ {
+  "id": "a20",
+  "year": 2019,
+  "level": "Preparatoria",
+  "award": "Salón de la Fama de Texas HS",
+  "detail": "Texas High School Football Hall of Fame"
+ },
+ {
+  "id": "a19",
+  "year": 2020,
+  "level": "NFL",
+  "award": "Equipo de la década de 2010",
+  "detail": "NFL 2010s All-Decade Team"
+ },
+ {
+  "id": "a21",
+  "year": 2027,
+  "level": "NFL",
+  "award": "Elegible al Salón de la Fama",
+  "detail": "Primer año en la boleta (Clase 2027)"
+ }
+]

@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adrian Peterson · All Day</title>
+<meta name="description" content="Visualizador de la carrera de Adrian Peterson y comparador contra 10 RBs GOAT.">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<button class="theme-toggle" type="button" aria-label="Cambiar tema claro/oscuro">◐</button>
+<main id="dash-root">
+<!-- PAGE:START (este bloque es lo que se sube al dashboard de Claude; no pongas nada local aquí dentro) -->
+<div class="ap">
+  <header class="ap-head" id="inicio">
+    <p class="ap-kicker">Visualizador para el video · Carrera completa</p>
+    <h1 class="ap-title">Adrian Peterson, «All Day»</h1>
+    <p class="ap-take">Es el <b data-draw="val" data-source="ap_records" data-field="value" data-where="id=rank_yds" data-fmt="text" class="dash-skeleton">—</b> corredor con más yardas por tierra en la historia de la NFL, tiene el récord de yardas en un partido (<b data-draw="val" data-source="ap_records" data-field="value" data-where="id=game296" data-fmt="text" class="dash-skeleton">—</b>) y sigue siendo el último jugador que no es quarterback en ganar el MVP (<b data-draw="val" data-source="ap_records" data-field="value" data-where="id=lastmvp" data-fmt="text" class="dash-skeleton">—</b>). Salón de la Fama: <b data-draw="val" data-source="rbs" data-field="hof" data-where="id=peterson" data-fmt="text" class="dash-skeleton">—</b>.</p>
+  </header>
+
+  <section class="ap-kpis" aria-label="Números de carrera">
+    <div class="ap-kpi"><span class="ap-kpi-v dash-skeleton" data-draw="val" data-source="ap_totals" data-field="yds" data-row="0">—</span><span class="ap-kpi-l">Yardas por tierra</span></div>
+    <div class="ap-kpi"><span class="ap-kpi-v dash-skeleton" data-draw="val" data-source="ap_totals" data-field="td" data-row="0">—</span><span class="ap-kpi-l">TD por tierra</span></div>
+    <div class="ap-kpi"><span class="ap-kpi-v dash-skeleton" data-draw="val" data-source="ap_totals" data-field="scrim" data-row="0">—</span><span class="ap-kpi-l">Yardas desde scrimmage</span></div>
+    <div class="ap-kpi"><span class="ap-kpi-v dash-skeleton" data-draw="val" data-source="rbs" data-field="mvp" data-where="id=peterson">—</span><span class="ap-kpi-l">MVP de la NFL</span></div>
+    <div class="ap-kpi"><span class="ap-kpi-v dash-skeleton" data-draw="val" data-source="rbs" data-field="allpro1" data-where="id=peterson">—</span><span class="ap-kpi-l">All-Pro 1er equipo</span></div>
+    <div class="ap-kpi"><span class="ap-kpi-v dash-skeleton" data-draw="val" data-source="rbs" data-field="probowls" data-where="id=peterson">—</span><span class="ap-kpi-l">Pro Bowls</span></div>
+  </section>
+
+  <nav class="ap-tabs" role="tablist" aria-label="Secciones">
+    <button class="ap-tab" role="tab" data-tab="nfl" aria-selected="true">Carrera NFL</button>
+    <button class="ap-tab" role="tab" data-tab="formacion" aria-selected="false">Prepa y college</button>
+    <button class="ap-tab" role="tab" data-tab="premios" aria-selected="false">Premios y récords</button>
+    <button class="ap-tab" role="tab" data-tab="goat" aria-selected="false">Comparador GOAT</button>
+  </nav>
+
+  <!-- ===================== NFL ===================== -->
+  <section class="ap-panel" id="nfl">
+    <div class="ap-card" id="temporadas">
+      <h2>Temporada por temporada</h2>
+      <p class="ap-note">Barras resaltadas: temporadas en el All-Pro de 1er equipo. La estrella marca que lideró la liga en esa categoría. Pasa el cursor por cada barra para ver equipo y contexto.</p>
+      <div class="ap-row">
+        <label for="ap-sm">Métrica</label>
+        <select id="ap-sm" class="js-season-metric">
+          <option value="yds">Yardas por tierra</option>
+          <option value="td">TD por tierra</option>
+          <option value="avg">Yardas por acarreo</option>
+          <option value="scrim">Yardas desde scrimmage</option>
+          <option value="rec">Recepciones</option>
+        </select>
+      </div>
+      <div class="ap-chart" data-draw="seasons" data-source="ap_by_year"></div>
+      <div class="ap-legend"><span><i class="ap-sw" data-c="0"></i>All-Pro 1er equipo</span><span><i class="ap-sw muted"></i>Resto de temporadas</span><span><i class="ap-sw" data-c="1"></i>★ Líder de la NFL</span></div>
+    </div>
+
+    <div class="ap-card" id="acumulado">
+      <h2>La subida en la lista histórica</h2>
+      <p class="ap-note">Yardas por tierra acumuladas de Peterson contra el total de carrera de los otros 10 corredores del comparador. Cada punto sobre una línea marca la temporada en que lo rebasó.</p>
+      <div class="ap-chart tall" data-draw="cumul" data-source="ap_by_year rbs"></div>
+    </div>
+
+    <div class="ap-grid">
+      <div class="ap-card">
+        <h3>Playoffs</h3>
+        <p class="ap-note">Cuatro apariciones con Minnesota, ninguna llegada al Super Bowl.</p>
+        <p class="ap-sentence"><b data-draw="val" data-source="ap_playoffs" data-field="gp" data-row="0" class="dash-skeleton">—</b> partidos, <b data-draw="val" data-source="ap_playoffs" data-field="att" data-row="0" class="dash-skeleton">—</b> acarreos, <b data-draw="val" data-source="ap_playoffs" data-field="yds" data-row="0" class="dash-skeleton">—</b> yardas (<b data-draw="val" data-source="ap_playoffs" data-field="avg" data-row="0" data-fmt="dec1" class="dash-skeleton">—</b> por acarreo) y <b data-draw="val" data-source="ap_playoffs" data-field="td" data-row="0" class="dash-skeleton">—</b> TD por tierra.</p>
+      </div>
+      <div class="ap-card">
+        <h3>Promedios de carrera</h3>
+        <p class="ap-note">Calculados sobre toda su temporada regular.</p>
+        <p class="ap-sentence"><b data-draw="val" data-source="ap_totals" data-field="ypc" data-row="0" data-fmt="dec1" class="dash-skeleton">—</b> yardas por acarreo y <b data-draw="val" data-source="ap_totals" data-field="ypg" data-row="0" data-fmt="dec1" class="dash-skeleton">—</b> por partido en <b data-draw="val" data-source="ap_totals" data-field="gp" data-row="0" class="dash-skeleton">—</b> juegos, con <b data-draw="val" data-source="ap_totals" data-field="rec" data-row="0" class="dash-skeleton">—</b> recepciones para <b data-draw="val" data-source="ap_totals" data-field="recyds" data-row="0" class="dash-skeleton">—</b> yardas.</p>
+      </div>
+    </div>
+
+    <div class="ap-card" id="tabla-nfl">
+      <h2>Estadísticas oficiales de temporada regular</h2>
+      <p class="ap-note">Fuente: Pro Football Reference vía Wikipedia. En 2017 y 2021 jugó en dos equipos.</p>
+      <div class="ap-tablebox">
+        <table data-source="ap_nfl" data-row-key="year,team">
+          <thead><tr>
+            <th class="l" data-field="year">Año</th><th class="l" data-field="team">Equipo</th><th data-field="gp">PJ</th><th data-field="att">Acarreos</th><th data-field="yds">Yardas</th><th data-field="avg">Prom.</th><th data-field="lng">Larga</th><th data-field="td">TD</th><th data-field="rec">Rec.</th><th data-field="recyds">Yds rec.</th><th data-field="rectd">TD rec.</th><th class="l" data-field="allpro">All-Pro</th><th class="l" data-field="note">Contexto</th>
+          </tr></thead>
+          <tbody data-draw="nfltable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FORMACIÓN ===================== -->
+  <section class="ap-panel" id="formacion" hidden>
+    <div class="ap-card">
+      <h2>Producción por temporada en cada nivel</h2>
+      <p class="ap-note">Yardas por tierra en preparatoria (Palestine HS, Texas), universidad (Oklahoma) y NFL.</p>
+      <div class="ap-chart" data-draw="ladder" data-source="ap_hs ap_college ap_by_year"></div>
+      <div class="ap-legend"><span><i class="ap-sw" data-c="2"></i>Preparatoria</span><span><i class="ap-sw" data-c="1"></i>Universidad</span><span><i class="ap-sw" data-c="0"></i>NFL</span></div>
+    </div>
+
+    <div class="ap-grid">
+      <div class="ap-card">
+        <h3>Preparatoria · Palestine HS (Texas)</h3>
+        <p class="ap-note">Solo jugó varsity en sus dos últimos años: en su año sophomore no fue elegible.</p>
+        <div class="ap-tablebox">
+          <table data-source="ap_hs" data-row-key="year">
+            <thead><tr><th class="l" data-field="year">Año</th><th class="l" data-field="cls">Grado</th><th data-field="att">Acarreos</th><th data-field="yds">Yardas</th><th data-field="avg">Prom.</th><th data-field="td">TD</th></tr></thead>
+            <tbody data-draw="hstable"></tbody>
+          </table>
+        </div>
+        <p class="ap-sentence">En dos temporadas: <b data-draw="val" data-source="hs_totals" data-field="yds" data-row="0" class="dash-skeleton">—</b> yardas y <b data-draw="val" data-source="hs_totals" data-field="td" data-row="0" class="dash-skeleton">—</b> TD, a <b data-draw="val" data-source="hs_totals" data-field="ypc" data-row="0" data-fmt="dec1" class="dash-skeleton">—</b> yardas por acarreo.</p>
+      </div>
+      <div class="ap-card">
+        <h3>Universidad · Oklahoma Sooners</h3>
+        <p class="ap-note">Las cifras incluyen juegos de bowl (Sports Reference). Oklahoma reporta 4,045 yardas con su propio conteo.</p>
+        <div class="ap-tablebox">
+          <table data-source="ap_college" data-row-key="year">
+            <thead><tr><th class="l" data-field="year">Año</th><th class="l" data-field="cls">Grado</th><th data-field="gp">PJ</th><th data-field="att">Acarreos</th><th data-field="yds">Yardas</th><th data-field="avg">Prom.</th><th data-field="td">TD</th><th data-field="rec">Rec.</th><th data-field="recyds">Yds rec.</th></tr></thead>
+            <tbody data-draw="coltable"></tbody>
+          </table>
+        </div>
+        <p class="ap-sentence">En tres temporadas: <b data-draw="val" data-source="col_totals" data-field="yds" data-row="0" class="dash-skeleton">—</b> yardas y <b data-draw="val" data-source="col_totals" data-field="td" data-row="0" class="dash-skeleton">—</b> TD por tierra en <b data-draw="val" data-source="col_totals" data-field="gp" data-row="0" class="dash-skeleton">—</b> partidos.</p>
+      </div>
+    </div>
+
+    <div class="ap-card">
+      <h3>Perfil físico · NFL Combine 2007</h3>
+      <p class="ap-note">Medidas oficiales del Combine; el tiempo de 100 m es su mejor marca personal declarada, no un registro oficial.</p>
+      <div class="ap-tablebox">
+        <table data-source="ap_profile" data-row-key="id">
+          <thead><tr><th class="l" data-field="metric">Prueba</th><th data-field="value">Marca</th></tr></thead>
+          <tbody data-draw="proftable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PREMIOS ===================== -->
+  <section class="ap-panel" id="premios" hidden>
+    <div class="ap-card">
+      <h2>Récords y marcas</h2>
+      <p class="ap-note">Lo que más se presta para un gráfico en pantalla.</p>
+      <div class="ap-records" data-draw="records" data-source="ap_records"></div>
+    </div>
+    <div class="ap-card">
+      <h2>Línea de tiempo de premios</h2>
+      <p class="ap-note">Desde la preparatoria hasta su elegibilidad al Salón de la Fama.</p>
+      <div class="ap-chips" role="group" aria-label="Nivel">
+        <button class="ap-chip js-level" data-level="all" aria-pressed="true">Todos</button>
+        <button class="ap-chip js-level" data-level="Preparatoria" aria-pressed="false">Preparatoria</button>
+        <button class="ap-chip js-level" data-level="College" aria-pressed="false">College</button>
+        <button class="ap-chip js-level" data-level="NFL" aria-pressed="false">NFL</button>
+      </div>
+      <ol class="ap-tl" data-draw="timeline" data-source="ap_awards"></ol>
+    </div>
+  </section>
+
+  <!-- ===================== GOAT ===================== -->
+  <section class="ap-panel" id="goat" hidden>
+    <div class="ap-card">
+      <h2>Cara a cara</h2>
+      <p class="ap-note">Elige a dos corredores. Gana quien tenga el número más alto en cada categoría; partidos y acarreos se muestran pero no cuentan para el marcador.</p>
+      <div class="ap-row">
+        <label for="ap-pa">Jugador A</label>
+        <select id="ap-pa" data-draw="pick" data-which="a" data-source="rbs"></select>
+        <label for="ap-pb">Jugador B</label>
+        <select id="ap-pb" data-draw="pick" data-which="b" data-source="rbs"></select>
+      </div>
+      <div class="ap-h2h" data-draw="h2h" data-source="rbs rbs_rates"></div>
+    </div>
+
+    <div class="ap-grid">
+      <div class="ap-card">
+        <h3>Radar de perfil</h3>
+        <p class="ap-note">Cada eje es el porcentaje del mejor de los 11 en esa categoría (100% = el líder del grupo).</p>
+        <div class="ap-radar" data-draw="radar" data-source="rbs rbs_rates"></div>
+      </div>
+      <div class="ap-card">
+        <h3>Ranking de los 11</h3>
+        <p class="ap-note">Ordena a todos por una categoría; los dos del cara a cara quedan resaltados.</p>
+        <div class="ap-row">
+          <label for="ap-rm">Categoría</label>
+          <select id="ap-rm" class="js-rank-metric">
+            <option value="yds">Yardas por tierra</option>
+            <option value="ypc">Yardas por acarreo</option>
+            <option value="ypg">Yardas por partido</option>
+            <option value="td">TD por tierra</option>
+            <option value="totTd">TD totales</option>
+            <option value="scrim">Yardas desde scrimmage</option>
+            <option value="scrimPg">Scrimmage por partido</option>
+            <option value="rec">Recepciones</option>
+            <option value="recyds">Yardas por recepción</option>
+            <option value="probowls">Pro Bowls</option>
+            <option value="allpro1">All-Pro 1er equipo</option>
+            <option value="mvp">MVP</option>
+            <option value="opoy">Jugador Ofensivo del Año</option>
+            <option value="rushtitles">Títulos de yardas</option>
+            <option value="k2">Temporadas de 2,000 yardas</option>
+            <option value="rings">Campeonatos</option>
+            <option value="games">Partidos</option>
+            <option value="att">Acarreos</option>
+          </select>
+        </div>
+        <div class="ap-chart" data-draw="rank" data-source="rbs rbs_rates"></div>
+      </div>
+    </div>
+
+    <div class="ap-card" id="tabla-goat">
+      <h2>Tabla completa</h2>
+      <p class="ap-note">Haz clic en un encabezado para ordenar. Premios de AP. El premio al Jugador Ofensivo del Año existe desde 1972, después de la carrera de Jim Brown. Derrick Henry sigue activo, así que sus cifras cambian cada semana.</p>
+      <div class="ap-tablebox">
+        <table data-source="rbs" data-row-key="id">
+          <thead><tr>
+            <th class="l" data-field="name"><button class="js-sort" data-sort="name">Jugador</button></th>
+            <th class="l" data-field="years"><button class="js-sort" data-sort="years">Carrera</button></th>
+            <th data-field="games"><button class="js-sort" data-sort="games">PJ</button></th>
+            <th data-field="att"><button class="js-sort" data-sort="att">Acarreos</button></th>
+            <th data-field="yds" aria-sort="descending"><button class="js-sort" data-sort="yds">Yardas</button></th>
+            <th data-source="rbs_rates" data-field="ypc"><button class="js-sort" data-sort="ypc">Yds/acarreo</button></th>
+            <th data-source="rbs_rates" data-field="ypg"><button class="js-sort" data-sort="ypg">Yds/partido</button></th>
+            <th data-field="td"><button class="js-sort" data-sort="td">TD</button></th>
+            <th data-field="rec"><button class="js-sort" data-sort="rec">Rec.</button></th>
+            <th data-field="recyds"><button class="js-sort" data-sort="recyds">Yds rec.</button></th>
+            <th data-source="rbs_rates" data-field="scrim"><button class="js-sort" data-sort="scrim">Scrimmage</button></th>
+            <th data-source="rbs_rates" data-field="totTd"><button class="js-sort" data-sort="totTd">TD totales</button></th>
+            <th data-field="probowls"><button class="js-sort" data-sort="probowls">Pro Bowls</button></th>
+            <th data-field="allpro1"><button class="js-sort" data-sort="allpro1">All-Pro</button></th>
+            <th data-field="mvp"><button class="js-sort" data-sort="mvp">MVP</button></th>
+            <th data-field="opoy"><button class="js-sort" data-sort="opoy">OPOY</button></th>
+            <th data-field="rushtitles"><button class="js-sort" data-sort="rushtitles">Títulos yds</button></th>
+            <th data-field="rings"><button class="js-sort" data-sort="rings">Anillos</button></th>
+            <th class="l" data-field="draft"><button class="js-sort" data-sort="draft">Draft</button></th>
+            <th class="l" data-field="heisman"><button class="js-sort" data-sort="heisman">Heisman</button></th>
+          </tr></thead>
+          <tbody data-draw="rbtable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- PAGE:END -->
+</main>
+<script src="vendor/d3.v7.9.0.min.js"></script>
+<script src="js/dash-shim.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

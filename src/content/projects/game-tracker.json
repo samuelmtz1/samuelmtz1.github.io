@@ -1,0 +1,13 @@
+{
+  "title": { "en": "NFL and CFB Game Tracker" },
+  "summary": { "en": "Desktop app that shows the day's NFL and college football games within free API limits." },
+  "kind": "web-app",
+  "status": "live",
+  "order": 99,
+  "hidden": true,
+  "builtWith": "Antigravity",
+  "stack": ["Python", "CustomTkinter", "SQLite"],
+  "skills": ["Learning project"],
+  "links": {},
+  "repo": "free-nfl-and-cfb-game-tracker"
+}

@@ -1,0 +1,12 @@
+{
+  "title": { "en": "Gridiron Hub" },
+  "summary": { "en": "NFL and college football data and content-production platform for my YouTube channel: a data pipeline, an API, a web panel and automated tests. Access is limited to the team." },
+  "kind": "web-app",
+  "status": "live",
+  "order": 3,
+  "builtWith": "Antigravity",
+  "stack": ["Python", "FastAPI", "pandas", "DuckDB", "JavaScript", "GitHub Actions", "Vercel", "Render"],
+  "skills": ["Data pipelines", "Backend", "Automated tests", "Content production"],
+  "links": {},
+  "repo": "Gridiron-Hub"
+}

@@ -1,0 +1,103 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import profile from "../data/profile.json";
+
+const all = await getCollection("projects");
+const visible = all
+  .filter((p) => !p.data.hidden)
+  .sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned) || a.data.order - b.data.order);
+
+// Basic metadata from public repos. A failed request only hides the date.
+async function lastUpdate(repo?: string) {
+  if (!repo) return null;
+  try {
+    const res = await fetch(`https://api.github.com/repos/samuelmtz1/${repo}`, {
+      headers: process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {},
+    });
+    if (!res.ok) return null;
+    const { pushed_at } = await res.json();
+    return new Date(pushed_at).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  } catch {
+    return null;
+  }
+}
+
+const projects = await Promise.all(
+  visible.map(async (p) => ({ ...p.data, updated: await lastUpdate(p.data.repo) })),
+);
+const statusLabel = { live: "Live", "in-development": "In development" };
+---
+
+<Base title={`${profile.name} | ${profile.headline}`} description={profile.intro}>
+  <header>
+    <h1>{profile.name}</h1>
+    <p><strong>{profile.headline}</strong></p>
+    <p>{profile.intro}</p>
+    <p class="muted">{profile.availability}</p>
+    <p class="links">
+      <a href={`mailto:${profile.contact.email}`}>Email</a>
+      <a href={profile.contact.linkedin}>LinkedIn</a>
+      <a href={profile.contact.github}>GitHub</a>
+    </p>
+  </header>
+
+  <section aria-labelledby="projects">
+    <h2 id="projects">Projects</h2>
+    {
+      projects.map((p) => (
+        <article class="card">
+          <h3>{p.title.en}</h3>
+          <p class="muted">
+            {statusLabel[p.status]} · Built with {p.builtWith}
+            {p.updated && ` · Updated ${p.updated}`}
+          </p>
+          <p>{p.summary.en}</p>
+          <p class="muted">{p.stack.join(" · ")}</p>
+          <p class="links">
+            {p.links.demo && <a href={p.links.demo}>Open demo</a>}
+            {p.links.code && <a href={p.links.code}>View code</a>}
+          </p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section aria-labelledby="content">
+    <h2 id="content">Content</h2>
+    <article class="card">
+      <h3>{profile.content.title}</h3>
+      <p>{profile.content.summary}</p>
+      <p><a href={profile.content.url}>Watch on YouTube</a></p>
+    </article>
+  </section>
+
+  <section aria-labelledby="skills">
+    <h2 id="skills">Skills</h2>
+    {
+      profile.skills.map((s) => (
+        <p>
+          <strong>{s.group}:</strong> {s.items.join(", ")}
+        </p>
+      ))
+    }
+  </section>
+
+  <section aria-labelledby="experience">
+    <h2 id="experience">Experience</h2>
+    {
+      profile.experience.map((e) => (
+        <article class="card">
+          <h3>{e.title}</h3>
+          <p class="muted">
+            {e.company} · {e.dates}
+          </p>
+          <ul>{e.points.map((point) => <li>{point}</li>)}</ul>
+        </article>
+      ))
+    }
+    <h3>Education</h3>
+    <ul>{profile.education.map((item) => <li>{item}</li>)}</ul>
+    <p>{profile.other}</p>
+  </section>
+</Base>

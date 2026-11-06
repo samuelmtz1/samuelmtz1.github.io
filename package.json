@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-hub",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run check:public && astro build",
+    "preview": "astro preview",
+    "check:public": "node scripts/check-public.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.4.7",
+    "typescript": "^7.0.2"
+  }
+}

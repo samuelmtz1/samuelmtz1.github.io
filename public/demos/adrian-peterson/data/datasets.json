@@ -1,0 +1,103 @@
+[
+  {
+    "id": "ap_nfl",
+    "file": "ap_nfl.json",
+    "title": "Peterson NFL por temporada",
+    "description": "Temporada regular 2007–2021, una fila por año y equipo. All-Pro de AP y notas de contexto.",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Adrian_Peterson"
+    ],
+    "updated": "2026-11-03",
+    "fixed": true
+  },
+  {
+    "id": "ap_college",
+    "file": "ap_college.json",
+    "title": "Peterson en Oklahoma",
+    "description": "2004–2006, bowls incluidos (Sports Reference). Oklahoma reporta 4,045 yds con su propio conteo.",
+    "sources": [
+      "https://sports-reference.com/cfb/players/adrian-peterson-1.html"
+    ],
+    "updated": "2026-11-03",
+    "fixed": true
+  },
+  {
+    "id": "ap_hs",
+    "file": "ap_hs.json",
+    "title": "Peterson en Palestine HS",
+    "description": "Temporadas junior (2002) y senior (2003).",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Adrian_Peterson",
+      "https://www.maxpreps.com/news/xb3l_O5BgkmDTqf1Yabx9A/adrian-peterson-recalls-great-times-playing-for-palestine-high-school.htm",
+      "https://www.neworleanssaints.com/news/10-things-to-know-about-adrian-peterson-18772511"
+    ],
+    "updated": "2026-11-03",
+    "fixed": true
+  },
+  {
+    "id": "ap_playoffs",
+    "file": "ap_playoffs.json",
+    "title": "Peterson en playoffs",
+    "description": "Totales de postemporada (2008, 2009, 2012, 2015).",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Adrian_Peterson"
+    ],
+    "updated": "2026-11-03",
+    "fixed": true
+  },
+  {
+    "id": "rbs",
+    "file": "rbs.json",
+    "title": "Los 11 corredores GOAT",
+    "description": "Totales de carrera y premios AP de Peterson y 10 RBs. Derrick Henry sigue activo: cifras al 1 nov 2026.",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Jim_Brown",
+      "https://en.wikipedia.org/wiki/Walter_Payton",
+      "https://en.wikipedia.org/wiki/Barry_Sanders",
+      "https://profootballhof.com/Players/emmitt-smith",
+      "https://profootballhof.com/Players/eric-dickerson",
+      "https://en.wikipedia.org/wiki/LaDainian_Tomlinson",
+      "https://en.wikipedia.org/wiki/Marshall_Faulk",
+      "https://en.wikipedia.org/wiki/Earl_Campbell",
+      "https://profootballhof.com/Players/marcus-allen",
+      "https://en.wikipedia.org/wiki/Derrick_Henry",
+      "https://www.pro-football-reference.com/players/H/HenrDe00.htm"
+    ],
+    "updated": "2026-11-03",
+    "fixed": false
+  },
+  {
+    "id": "ap_awards",
+    "file": "ap_awards.json",
+    "title": "Premios de Peterson",
+    "description": "Premios de preparatoria, universidad y NFL.",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Adrian_Peterson",
+      "https://www.texasfootball.com/hof-adrian-peterson"
+    ],
+    "updated": "2026-11-03",
+    "fixed": true
+  },
+  {
+    "id": "ap_records",
+    "file": "ap_records.json",
+    "title": "Récords de Peterson",
+    "description": "Récords y marcas destacadas.",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Adrian_Peterson"
+    ],
+    "updated": "2026-11-03",
+    "fixed": true
+  },
+  {
+    "id": "ap_profile",
+    "file": "ap_profile.json",
+    "title": "Combine 2007 de Peterson",
+    "description": "Medidas del NFL Combine 2007; el 100 m es su mejor marca declarada.",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Adrian_Peterson"
+    ],
+    "updated": "2026-11-03",
+    "fixed": true
+  }
+]

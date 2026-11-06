@@ -1,0 +1,11 @@
+{
+  "title": { "en": "QB Draft 2000+" },
+  "summary": { "en": "On-screen debate tool for a YouTube episode that compares two Top 5 quarterback lists built in draft mode, with head-to-head stats, a legacy score with adjustable weights and a vote tracker. The interface is in Spanish." },
+  "kind": "content-tool",
+  "status": "live",
+  "order": 5,
+  "builtWith": "Claude",
+  "stack": ["JavaScript", "HTML", "CSS"],
+  "skills": ["Content production", "Interface design for video"],
+  "links": { "demo": "/demos/qb-draft/" }
+}

@@ -1,0 +1,3 @@
+# Not indexed until launch (stage 5).
+User-agent: *
+Disallow: /

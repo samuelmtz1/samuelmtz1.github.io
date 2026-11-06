@@ -1,0 +1,42 @@
+[
+ {
+  "id": "height",
+  "metric": "Estatura (Combine)",
+  "value": "6'1½\""
+ },
+ {
+  "id": "weight",
+  "metric": "Peso (Combine)",
+  "value": "217 lb"
+ },
+ {
+  "id": "forty",
+  "metric": "40 yardas",
+  "value": "4.41 s"
+ },
+ {
+  "id": "vert",
+  "metric": "Salto vertical",
+  "value": "38.5 in"
+ },
+ {
+  "id": "broad",
+  "metric": "Salto largo",
+  "value": "10'7\""
+ },
+ {
+  "id": "cone",
+  "metric": "3 conos",
+  "value": "7.09 s"
+ },
+ {
+  "id": "shuttle",
+  "metric": "Shuttle 20 yds",
+  "value": "4.40 s"
+ },
+ {
+  "id": "sprint",
+  "metric": "Mejor 100 m (declarado)",
+  "value": "10.19 s"
+ }
+]

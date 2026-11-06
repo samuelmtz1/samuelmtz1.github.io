@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <!-- Remove at launch (stage 5), together with public/robots.txt. -->
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+    <style is:global>
+      /* Base styles only. Final UI waits for Samuel's visual identity document (stage 4). */
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1c1c1c;
+        --muted: #5c5c5c;
+        --line: #d9d9d9;
+        --accent: #0b57d0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #141414;
+          --fg: #efefef;
+          --muted: #a8a8a8;
+          --line: #333333;
+          --accent: #8ab4f8;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+      a { color: var(--accent); }
+      section { margin-top: 40px; }
+      h1 { margin: 0; font-size: 2rem; }
+      h2 { margin: 0 0 16px; font-size: 1.25rem; }
+      h3 { margin: 0; font-size: 1.05rem; }
+      p { margin: 8px 0; }
+      ul { margin: 8px 0; padding-left: 20px; }
+      .muted { color: var(--muted); font-size: 0.9rem; }
+      .card { border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+      .links { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+    </style>
+  </head>
+  <body>
+    <main><slot /></main>
+  </body>
+</html>

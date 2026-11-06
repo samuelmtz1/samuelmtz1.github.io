@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<title>Draft de QBs 2000+</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: stadium scoreboard. Sam's corner left (orange), Luis's corner right (blue). One deliberate dark look for video capture. */
+:root{
+  color-scheme: dark;
+  --bg:#0d1218; --panel:#151d26; --panel2:#1c2632; --line:#2a3644;
+  --fg:#eef2f5; --muted:#8c9aa9; --dim:#5d6b7a;
+  --sam:#ff7a2f; --sam-soft:rgba(255,122,47,.16);
+  --luis:#3fa9ff; --luis-soft:rgba(63,169,255,.16);
+  --gold:#e8c35a; --win:#7ee08a;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --num:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:22px}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;margin:0;text-wrap:balance}
+.eyebrow{font-family:var(--num);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.n{font-family:var(--num);font-variant-numeric:tabular-nums}
+
+/* Scoreboard */
+.board{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.side{padding:18px 22px;display:grid;gap:8px;min-width:0}
+.side.sam{border-top:5px solid var(--sam)} .side.luis{border-top:5px solid var(--luis);text-align:right}
+.side h2{font-size:clamp(34px,6vw,64px);font-weight:900;line-height:.9}
+.side.sam h2{color:var(--sam)} .side.luis h2{color:var(--luis)}
+.mid{display:grid;place-items:center;padding:14px 18px;background:var(--panel2);border-inline:1px solid var(--line);text-align:center}
+.mid h1{font-size:clamp(18px,2.6vw,28px);font-weight:800;line-height:1}
+.mid .eyebrow{margin-top:6px}
+.tally{display:flex;flex-wrap:wrap;gap:6px 14px}
+.side.luis .tally{justify-content:flex-end}
+.tally span{font-family:var(--num);font-size:15px;color:var(--muted)}
+.tally b{font-size:24px;color:var(--fg);font-weight:700;margin-right:3px}
+
+/* Tabs */
+nav{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+nav a{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:18px;letter-spacing:.03em;color:var(--muted);text-decoration:none;padding:10px 14px;border-bottom:3px solid transparent;margin-bottom:-1px}
+nav a[aria-current="page"]{color:var(--fg);border-color:var(--gold)}
+nav a:hover{color:var(--fg)}
+section{display:grid;gap:18px}
+.note{color:var(--muted);font-size:13px}
+
+/* Lists */
+.lists{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.col{display:grid;gap:8px;align-content:start;min-width:0}
+.colhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.colhead h3{font-size:30px;font-weight:900}
+.col.sam .colhead h3{color:var(--sam)} .col.luis .colhead h3{color:var(--luis)}
+.qb{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:10px 12px;cursor:pointer;text-align:left;width:100%}
+.qb:hover{background:var(--panel2)}
+.qb[aria-expanded="true"]{background:var(--panel2)}
+.col.sam .qb[aria-expanded="true"]{border-color:var(--sam)} .col.luis .qb[aria-expanded="true"]{border-color:var(--luis)}
+.rank{font-family:var(--display);font-weight:900;font-size:34px;line-height:1;text-align:center}
+.col.sam .rank{color:var(--sam)} .col.luis .rank{color:var(--luis)}
+.qbname{font-family:var(--display);font-weight:800;font-size:22px;text-transform:uppercase;line-height:1}
+.qbmeta{font-size:12.5px;color:var(--muted);margin-top:3px}
+.rings{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:140px}
+.chip{font-family:var(--num);font-weight:600;font-size:13px;padding:2px 7px;border-radius:3px;background:var(--panel2);border:1px solid var(--line);white-space:nowrap}
+.chip.g{color:var(--gold);border-color:rgba(232,195,90,.45)}
+.detail{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:14px;display:grid;gap:12px;margin-top:-4px}
+.grid-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px}
+.stat{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px 10px}
+.stat b{display:block;font-family:var(--num);font-size:24px;font-weight:700;line-height:1.05}
+.stat span{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.hl{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+.hl li::marker{color:var(--gold)}
+
+/* Duel */
+.picker{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:end}
+.picker label{display:grid;gap:4px}
+select{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:10px;font-family:var(--display);font-weight:800;font-size:20px;text-transform:uppercase;width:100%}
+.vs{font-family:var(--display);font-weight:900;font-size:28px;color:var(--gold);padding-bottom:8px}
+.quick{display:flex;flex-wrap:wrap;gap:6px}
+.btn{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:7px 12px;cursor:pointer;font-family:var(--num);font-weight:600;font-size:14px;letter-spacing:.03em}
+.btn:hover{background:var(--panel2)}
+.btn.on{border-color:var(--gold);color:var(--gold)}
+.duelhead{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;text-align:center}
+.duelhead .who{font-family:var(--display);font-weight:900;font-size:clamp(28px,5vw,52px);text-transform:uppercase;line-height:.9}
+.score{font-family:var(--num);font-weight:700;font-size:clamp(30px,5vw,48px);font-variant-numeric:tabular-nums}
+.rows{display:grid;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px}
+.row{display:grid;grid-template-columns:62px 1fr 150px 1fr 62px;gap:10px;align-items:center}
+.row .v{font-family:var(--num);font-weight:700;font-size:20px;font-variant-numeric:tabular-nums}
+.row .v.l{text-align:right}
+.row .lbl{text-align:center;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);line-height:1.15}
+.track{height:14px;background:var(--bg);border-radius:2px;overflow:hidden;display:flex}
+.track.l{justify-content:flex-end}
+.fill{height:100%;transition:width .5s ease}
+.v.win{color:var(--win)}
+.v.win::after{content:" ✓";font-size:14px}
+.v.l.win::after{content:""} .v.l.win::before{content:"✓ ";font-size:14px}
+
+/* Totals */
+.weights{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px}
+.weights label{display:grid;gap:2px;font-size:13px;color:var(--muted)}
+.weights label span{display:flex;justify-content:space-between}
+.weights label b{color:var(--fg);font-family:var(--num)}
+input[type=range]{accent-color:var(--gold);width:100%}
+.legacy{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lgcol{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;display:grid;gap:8px;min-width:0}
+.lgcol h3{font-size:24px;font-weight:900;display:flex;justify-content:space-between;align-items:baseline}
+.lgcol.sam h3{color:var(--sam)} .lgcol.luis h3{color:var(--luis)}
+.lgcol h3 .n{font-size:38px}
+.lgrow{display:grid;grid-template-columns:110px 1fr 46px;gap:8px;align-items:center;font-size:14px}
+.lgrow .n{text-align:right;font-weight:700;font-size:17px}
+
+/* Votes */
+.vote{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:16px}
+.vbar{display:flex;height:64px;border-radius:4px;overflow:hidden;background:var(--bg)}
+.vbar div{display:flex;align-items:center;padding:0 14px;font-family:var(--display);font-weight:900;font-size:28px;transition:width .5s ease;min-width:0;white-space:nowrap;overflow:hidden;color:#10161d}
+.vbar .s{background:var(--sam)} .vbar .lu{background:var(--luis);justify-content:flex-end}
+.vctl{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vctl fieldset{border:1px solid var(--line);border-radius:5px;padding:10px 12px;display:grid;gap:8px;margin:0}
+.vctl legend{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:18px;padding:0 4px}
+.vctl .sam legend{color:var(--sam)} .vctl .luis legend{color:var(--luis)}
+.vctl input[type=number]{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px;font-family:var(--num);font-size:22px;width:100%}
+.btnrow{display:flex;gap:6px;flex-wrap:wrap}
+.rounds{display:grid;gap:6px}
+.round{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.round button{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px 10px;cursor:pointer;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:17px}
+.round button.pick-s{border-color:var(--sam);background:var(--sam-soft);color:var(--sam)}
+.round button.pick-l{border-color:var(--luis);background:var(--luis-soft);color:var(--luis)}
+.round .tag{font-family:var(--num);color:var(--muted);font-size:13px;text-align:center}
+
+@media (max-width:760px){
+  .board{grid-template-columns:1fr 1fr}
+  .mid{grid-column:1/-1;grid-row:1;border-inline:0;border-bottom:1px solid var(--line)}
+  .lists,.legacy,.vctl{grid-template-columns:1fr}
+  .row{grid-template-columns:48px 1fr 92px 1fr 48px;gap:6px}
+  .row .v{font-size:17px}
+  .picker{grid-template-columns:1fr}
+  .vs{text-align:center;padding:0}
+  .rings{display:none}
+}
+@media (prefers-reduced-motion:reduce){.fill,.vbar div{transition:none}}
+</style>
+
+<div class="wrap">
+  <header class="board" aria-label="Marcador">
+    <div class="side sam">
+      <div class="eyebrow">Lista de</div>
+      <h2>Sam</h2>
+      <div class="tally" id="tally-sam"></div>
+    </div>
+    <div class="mid">
+      <div>
+        <h1>Top 5 QBs<br>desde 2000</h1>
+        <div class="eyebrow">Modo draft</div>
+      </div>
+    </div>
+    <div class="side luis">
+      <div class="eyebrow">Lista de</div>
+      <h2>Luis</h2>
+      <div class="tally" id="tally-luis"></div>
+    </div>
+  </header>
+
+  <nav aria-label="Secciones">
+    <a href="#listas" data-view="listas">Las listas</a>
+    <a href="#duelo" data-view="duelo">QB vs QB</a>
+    <a href="#legado" data-view="legado">Lista vs lista</a>
+    <a href="#votacion" data-view="votacion">Votación</a>
+  </nav>
+
+  <section id="v-listas" data-panel="listas">
+    <div class="lists">
+      <div class="col sam" id="col-sam"></div>
+      <div class="col luis" id="col-luis"></div>
+    </div>
+    <p class="note">Toca un QB para ver todos sus accolades. Números de carrera en temporada regular hasta el final de la temporada 2025; la temporada 2026 en curso no cuenta.</p>
+  </section>
+
+  <section id="v-duelo" data-panel="duelo" hidden>
+    <div class="picker">
+      <label><span class="eyebrow">Izquierda</span><select id="pickA"></select></label>
+      <div class="vs">VS</div>
+      <label><span class="eyebrow">Derecha</span><select id="pickB"></select></label>
+    </div>
+    <div class="quick" id="quick"></div>
+    <div class="duelhead">
+      <div class="who" id="whoA"></div>
+      <div class="score" id="duelScore"></div>
+      <div class="who" id="whoB"></div>
+    </div>
+    <div class="rows" id="duelRows"></div>
+    <p class="note">El marcador cuenta cuántas categorías gana cada uno. En intercepciones gana el número más bajo.</p>
+  </section>
+
+  <section id="v-legado" data-panel="legado" hidden>
+    <div class="rows" id="sumRows"></div>
+    <div>
+      <h3 style="font-size:24px;font-weight:900">Puntaje de legado</h3>
+      <p class="note">Ajusten cuánto vale cada cosa y el puntaje se recalcula en vivo. Discutan los pesos al aire: ahí está medio debate.</p>
+    </div>
+    <div class="weights" id="weights"></div>
+    <div class="legacy">
+      <div class="lgcol sam" id="lg-sam"></div>
+      <div class="lgcol luis" id="lg-luis"></div>
+    </div>
+  </section>
+
+  <section id="v-votacion" data-panel="votacion" hidden>
+    <div class="vote">
+      <div class="eyebrow">Resultado del público</div>
+      <div class="vbar" id="vbar"><div class="s" id="vs-s"></div><div class="lu" id="vs-l"></div></div>
+      <div class="vctl">
+        <fieldset class="sam">
+          <legend>Votos Sam</legend>
+          <input type="number" id="votesSam" min="0" step="1" inputmode="numeric" aria-label="Votos para la lista de Sam">
+          <div class="btnrow"><button class="btn" data-add="s" data-n="1">+1</button><button class="btn" data-add="s" data-n="10">+10</button><button class="btn" data-add="s" data-n="100">+100</button></div>
+        </fieldset>
+        <fieldset class="luis">
+          <legend>Votos Luis</legend>
+          <input type="number" id="votesLuis" min="0" step="1" inputmode="numeric" aria-label="Votos para la lista de Luis">
+          <div class="btnrow"><button class="btn" data-add="l" data-n="1">+1</button><button class="btn" data-add="l" data-n="10">+10</button><button class="btn" data-add="l" data-n="100">+100</button></div>
+        </fieldset>
+      </div>
+      <p class="note">Pasen aquí el resultado de la encuesta de YouTube (comunidad, live o comentarios) para mostrarlo en pantalla. Se guarda solo en este navegador.</p>
+    </div>
+    <div class="vote">
+      <div class="eyebrow">Ronda por ronda · ¿quién gana cada pick?</div>
+      <div class="rounds" id="rounds"></div>
+      <div class="duelhead"><div class="who" style="color:var(--sam)">Sam</div><div class="score" id="roundScore"></div><div class="who" style="color:var(--luis)">Luis</div></div>
+      <div class="btnrow"><button class="btn" id="resetVotes">Reiniciar votación</button></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const QB = {
+  mahomes:{name:"Patrick Mahomes",short:"Mahomes",owner:"s",rank:1,team:"Chiefs",years:"2017–hoy",status:"Activo",
+    sb:3,sbApp:5,sbMvp:3,mvp:2,ap1:2,pb:6,opoy:1,oroy:0,cpoy:0,moy:0,yds:35939,td:267,int:85,rate:100.5,pw:17,pl:4,hof:"Activo",
+    mvpYears:"2018, 2022",ap1Years:"2018, 2022",sbList:"LIV, LVII, LVIII",
+    hl:["3 Super Bowls y 3 MVPs de Super Bowl en sus primeras 7 temporadas como titular","5 apariciones en Super Bowl","17-4 en playoffs, el mejor porcentaje de la lista","2025: desgarro de ACL en semana 15; los Chiefs se quedaron fuera de playoffs por primera vez en su era"]},
+  peyton:{name:"Peyton Manning",short:"P. Manning",owner:"s",rank:2,team:"Colts, Broncos",years:"1998–2015",status:"Retirado",
+    sb:2,sbApp:4,sbMvp:1,mvp:5,ap1:7,pb:14,opoy:2,oroy:0,cpoy:1,moy:1,yds:71940,td:539,int:251,rate:96.5,pw:14,pl:13,hof:"Salón de la Fama 2021",
+    mvpYears:"2003, 2004, 2008, 2009, 2013",ap1Years:"2003, 2004, 2005, 2008, 2009, 2012, 2013",sbList:"XLI, 50",
+    hl:["5 MVPs: récord de la NFL","7 veces All-Pro de primer equipo, más que cualquier QB de las dos listas","2013: 55 TD y 5,477 yardas, récords de una temporada en su momento","Ganó Super Bowl con dos equipos distintos"]},
+  brees:{name:"Drew Brees",short:"Brees",owner:"s",rank:3,team:"Chargers, Saints",years:"2001–2020",status:"Retirado",
+    sb:1,sbApp:1,sbMvp:1,mvp:0,ap1:1,pb:13,opoy:2,oroy:0,cpoy:1,moy:1,yds:80358,td:571,int:243,rate:98.7,pw:9,pl:9,hof:"Salón de la Fama 2026",
+    mvpYears:"—",ap1Years:"2006",sbList:"XLIV",
+    hl:["Segundo de todos los tiempos en yardas y TD, solo detrás de Brady","Récord de temporadas de 5,000 yardas (5)","Lideró la liga en yardas por pase 7 veces","MVP del Super Bowl XLIV ganándole a Peyton"]},
+  ben:{name:"Ben Roethlisberger",short:"Big Ben",owner:"s",rank:4,team:"Steelers",years:"2004–2021",status:"Retirado",
+    sb:2,sbApp:3,sbMvp:0,mvp:0,ap1:0,pb:6,opoy:0,oroy:1,cpoy:0,moy:0,yds:64088,td:418,int:211,rate:93.5,pw:13,pl:10,hof:"Elegible en 2027",
+    mvpYears:"—",ap1Years:"—",sbList:"XL, XLIII",
+    hl:["2 Super Bowls con Pittsburgh","Novato Ofensivo del Año 2004","3 apariciones en Super Bowl","Nunca tuvo temporada perdedora como titular"]},
+  eli:{name:"Eli Manning",short:"E. Manning",owner:"s",rank:5,team:"Giants",years:"2004–2019",status:"Retirado",
+    sb:2,sbApp:2,sbMvp:2,mvp:0,ap1:0,pb:4,opoy:0,oroy:0,cpoy:0,moy:1,yds:57023,td:366,int:244,rate:84.1,pw:8,pl:4,hof:"Finalista (2025, 2026), no electo aún",
+    mvpYears:"—",ap1Years:"—",sbList:"XLII, XLVI",
+    hl:["2 MVPs de Super Bowl, ambos contra Brady","Le quitó la temporada perfecta a los Patriots 18-0 en el SB XLII","2-0 en Super Bowls","Walter Payton Hombre del Año 2016"]},
+  brady:{name:"Tom Brady",short:"Brady",owner:"l",rank:1,team:"Patriots, Buccaneers",years:"2000–2022",status:"Retirado",
+    sb:7,sbApp:10,sbMvp:5,mvp:3,ap1:3,pb:15,opoy:2,oroy:0,cpoy:1,moy:0,yds:89214,td:649,int:212,rate:97.2,pw:35,pl:13,hof:"Elegible en 2028",
+    mvpYears:"2007, 2010, 2017",ap1Years:"2007, 2010, 2017",sbList:"XXXVI, XXXVIII, XXXIX, XLIX, LI, LIII, LV",
+    hl:["7 Super Bowls: más que cualquier franquicia de la NFL","10 apariciones y 5 MVPs de Super Bowl, ambos récords","Líder histórico en yardas y TD por pase","35 victorias en playoffs, récord"]},
+  rodgers:{name:"Aaron Rodgers",short:"Rodgers",owner:"l",rank:2,team:"Packers, Jets, Steelers",years:"2005–hoy",status:"Activo",
+    sb:1,sbApp:1,sbMvp:1,mvp:4,ap1:4,pb:10,opoy:0,oroy:0,cpoy:0,moy:0,yds:66274,td:527,int:123,rate:102.2,pw:11,pl:11,hof:"Activo",
+    mvpYears:"2011, 2014, 2020, 2021",ap1Years:"2011, 2014, 2020, 2021",sbList:"XLV",
+    hl:["4 MVPs, segundo de todos los tiempos detrás de Peyton","Una de las mejores relaciones TD/INT de la historia (527/123)","MVP del Super Bowl XLV","11-11 en playoffs; perdió 30-6 ante Houston en 2025"]},
+  lamar:{name:"Lamar Jackson",short:"Lamar",owner:"l",rank:3,team:"Ravens",years:"2018–hoy",status:"Activo",
+    sb:0,sbApp:0,sbMvp:0,mvp:2,ap1:3,pb:4,opoy:0,oroy:0,cpoy:0,moy:0,yds:22608,td:187,int:56,rate:102.2,pw:3,pl:5,hof:"Activo",
+    mvpYears:"2019 (unánime), 2023",ap1Years:"2019, 2023, 2024",sbList:"—",
+    hl:["2 MVPs, el de 2019 por unanimidad","Récord de yardas por tierra de un QB (6,522)","Top 2 histórico en passer rating de carrera (102.2)","3-5 en playoffs y nunca ha llegado al Super Bowl"]},
+  stafford:{name:"Matthew Stafford",short:"Stafford",owner:"l",rank:4,team:"Lions, Rams",years:"2009–hoy",status:"Activo",
+    sb:1,sbApp:1,sbMvp:0,mvp:1,ap1:1,pb:3,opoy:0,oroy:0,cpoy:1,moy:0,yds:64516,td:423,int:196,rate:92.4,pw:7,pl:6,hof:"Activo",
+    mvpYears:"2025",ap1Years:"2025",sbList:"LVI",
+    hl:["MVP 2025: el ganador por primera vez más viejo de la historia, a los 37","Lideró la NFL en 2025 con 4,707 yardas y 46 TD","Primer All-Pro en su temporada 17","Campeón del Super Bowl LVI con los Rams"]},
+  cam:{name:"Cam Newton",short:"Cam",owner:"l",rank:5,team:"Panthers, Patriots",years:"2011–2021",status:"Retirado",
+    sb:0,sbApp:1,sbMvp:0,mvp:1,ap1:1,pb:3,opoy:1,oroy:1,cpoy:0,moy:0,yds:32382,td:194,int:123,rate:86.0,pw:3,pl:4,hof:"Elegible en 2027",
+    mvpYears:"2015",ap1Years:"2015",sbList:"—",
+    hl:["MVP y Jugador Ofensivo del Año 2015, con récord de 15-1","Novato Ofensivo del Año 2011","75 TD por tierra y 5,628 yardas corriendo","Perdió el Super Bowl 50 contra Peyton Manning, de la lista de Sam"]}
+};
+const ORDER = {s:["mahomes","peyton","brees","ben","eli"], l:["brady","rodgers","lamar","stafford","cam"]};
+const OWN = {s:{name:"Sam",c:"var(--sam)"}, l:{name:"Luis",c:"var(--luis)"}};
+const fmt = n => n.toLocaleString("en-US");
+
+const CATS = [
+  {k:"sb",l:"Super Bowls"},{k:"sbApp",l:"Apariciones SB"},{k:"sbMvp",l:"MVP Super Bowl"},
+  {k:"mvp",l:"MVP de la liga"},{k:"ap1",l:"All-Pro 1er equipo"},{k:"pb",l:"Pro Bowls"},
+  {k:"opoy",l:"Jugador Ofensivo del Año"},{k:"pw",l:"Victorias playoffs"},
+  {k:"pct",l:"% victorias playoffs",f:q=>q.pw/(q.pw+q.pl),show:v=>(v*100).toFixed(0)+"%"},
+  {k:"yds",l:"Yardas por pase"},{k:"td",l:"TD por pase"},
+  {k:"int",l:"Intercepciones",low:true},{k:"rate",l:"Passer rating",show:v=>v.toFixed(1)}
+];
+const val = (q,c) => c.f ? c.f(q) : q[c.k];
+const show = (c,v) => c.show ? c.show(v) : fmt(v);
+
+/* Storage helpers */
+const store = {
+  get(k,d){try{const v=localStorage.getItem("qbdraft:"+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem("qbdraft:"+k,JSON.stringify(v))}catch(e){}}
+};
+
+/* Scoreboard tallies */
+function sumOf(side,k){return ORDER[side].reduce((a,id)=>a+QB[id][k],0)}
+function renderTally(){
+  for(const s of ["s","l"]){
+    const el=document.getElementById(s==="s"?"tally-sam":"tally-luis");
+    el.innerHTML=[["sb","SB"],["mvp","MVP"],["ap1","All-Pro"],["pb","Pro Bowl"]]
+      .map(([k,l])=>`<span><b>${sumOf(s,k)}</b>${l}</span>`).join("");
+  }
+}
+
+/* Lists */
+let openId=null;
+function chips(q){
+  const c=[];
+  if(q.sb) c.push(`<span class="chip g">${q.sb}× SB</span>`);
+  if(q.mvp) c.push(`<span class="chip g">${q.mvp}× MVP</span>`);
+  if(q.ap1) c.push(`<span class="chip">${q.ap1}× AP1</span>`);
+  if(!q.sb&&!q.mvp) c.push(`<span class="chip">${q.pb}× PB</span>`);
+  return c.join("");
+}
+function detail(q){
+  const st=[["Super Bowls",q.sb],["Apariciones SB",q.sbApp],["MVP Super Bowl",q.sbMvp],["MVP liga",q.mvp],["All-Pro 1er eq.",q.ap1],["Pro Bowls",q.pb],["OPOY",q.opoy],["Playoffs",q.pw+"-"+q.pl],["Yardas",fmt(q.yds)],["TD",q.td],["INT",q.int],["Rating",q.rate.toFixed(1)]];
+  const extra=[];
+  if(q.oroy) extra.push("Novato Ofensivo del Año");
+  if(q.cpoy) extra.push("Regreso del Año");
+  if(q.moy) extra.push("Walter Payton Hombre del Año");
+  return `<div class="detail">
+    <div class="grid-stats">${st.map(([l,v])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("")}</div>
+    <div class="note"><b style="color:var(--fg)">Super Bowls:</b> ${q.sbList} · <b style="color:var(--fg)">MVP:</b> ${q.mvpYears} · <b style="color:var(--fg)">All-Pro:</b> ${q.ap1Years}${extra.length?` · <b style="color:var(--fg)">Otros:</b> ${extra.join(", ")}`:""} · <b style="color:var(--fg)">Salón de la Fama:</b> ${q.hof}</div>
+    <ul class="hl">${q.hl.map(h=>`<li>${h}</li>`).join("")}</ul>
+  </div>`;
+}
+function renderLists(){
+  for(const s of ["s","l"]){
+    const el=document.getElementById(s==="s"?"col-sam":"col-luis");
+    el.innerHTML=`<div class="colhead"><h3>${OWN[s].name}</h3><span class="eyebrow">${sumOf(s,"sb")} anillos · ${sumOf(s,"mvp")} MVPs</span></div>`+
+      ORDER[s].map(id=>{const q=QB[id];const op=openId===id;
+        return `<button class="qb" data-id="${id}" aria-expanded="${op}">
+          <span class="rank">${q.rank}</span>
+          <span><span class="qbname">${q.short}</span><div class="qbmeta">${q.team} · ${q.years}</div></span>
+          <span class="rings">${chips(q)}</span>
+        </button>${op?detail(q):""}`}).join("");
+  }
+  document.querySelectorAll(".qb").forEach(b=>b.onclick=()=>{openId=openId===b.dataset.id?null:b.dataset.id;renderLists()});
+}
+
+/* Duel */
+const pickA=document.getElementById("pickA"), pickB=document.getElementById("pickB");
+function fillSelects(){
+  const opts=s=>`<optgroup label="Lista de ${OWN[s].name}">`+ORDER[s].map(id=>`<option value="${id}">${QB[id].rank}. ${QB[id].name}</option>`).join("")+"</optgroup>";
+  pickA.innerHTML=opts("s")+opts("l"); pickB.innerHTML=opts("s")+opts("l");
+  const saved=store.get("duel",["mahomes","brady"]);
+  pickA.value=QB[saved[0]]?saved[0]:"mahomes"; pickB.value=QB[saved[1]]?saved[1]:"brady";
+  pickA.onchange=pickB.onchange=renderDuel;
+  const q=document.getElementById("quick");
+  q.innerHTML=[0,1,2,3,4].map(i=>`<button class="btn" data-pair="${i}">Pick #${i+1}: ${QB[ORDER.s[i]].short} vs ${QB[ORDER.l[i]].short}</button>`).join("");
+  q.querySelectorAll("button").forEach(b=>b.onclick=()=>{const i=+b.dataset.pair;pickA.value=ORDER.s[i];pickB.value=ORDER.l[i];renderDuel()});
+}
+function renderDuel(){
+  const a=QB[pickA.value], b=QB[pickB.value];
+  store.set("duel",[pickA.value,pickB.value]);
+  const ca=OWN[a.owner].c, cb=OWN[b.owner].c===ca && a!==b ? "var(--gold)" : OWN[b.owner].c;
+  let wa=0,wb=0;
+  const rows=CATS.map(c=>{
+    const va=val(a,c), vb=val(b,c), max=Math.max(va,vb)||1;
+    let A=false,B=false;
+    if(va!==vb){ const aBetter=c.low?va<vb:va>vb; A=aBetter; B=!aBetter; A?wa++:wb++; }
+    return `<div class="row">
+      <div class="v l ${A?"win":""}">${show(c,va)}</div>
+      <div class="track l"><div class="fill" style="width:${va/max*100}%;background:${ca};opacity:${A||va===vb?1:.45}"></div></div>
+      <div class="lbl">${c.l}${c.low?"<br><small>(menos es mejor)</small>":""}</div>
+      <div class="track"><div class="fill" style="width:${vb/max*100}%;background:${cb};opacity:${B||va===vb?1:.45}"></div></div>
+      <div class="v ${B?"win":""}">${show(c,vb)}</div>
+    </div>`}).join("");
+  document.getElementById("duelRows").innerHTML=rows;
+  const wA=document.getElementById("whoA"), wB=document.getElementById("whoB");
+  wA.textContent=a.short; wA.style.color=ca; wB.textContent=b.short; wB.style.color=cb;
+  document.getElementById("duelScore").textContent=`${wa} – ${wb}`;
+  document.querySelectorAll("#quick button").forEach((btn,i)=>btn.classList.toggle("on",pickA.value===ORDER.s[i]&&pickB.value===ORDER.l[i]));
+}
+
+/* List vs list */
+const WEIGHTS=[
+  {k:"sb",l:"Super Bowl ganado",d:10,max:20},{k:"sbMvp",l:"MVP de Super Bowl",d:4,max:10},
+  {k:"mvp",l:"MVP de la liga",d:8,max:20},{k:"ap1",l:"All-Pro 1er equipo",d:4,max:10},
+  {k:"pb",l:"Pro Bowl",d:1,max:5},{k:"opoy",l:"Jugador Ofensivo del Año",d:3,max:10},
+  {k:"pw",l:"Victoria en playoffs",d:1,max:5}
+];
+let W=store.get("weights",null)||Object.fromEntries(WEIGHTS.map(w=>[w.k,w.d]));
+function renderSums(){
+  const sumCats=[{k:"sb",l:"Super Bowls"},{k:"sbMvp",l:"MVP Super Bowl"},{k:"mvp",l:"MVP de la liga"},{k:"ap1",l:"All-Pro 1er equipo"},{k:"pb",l:"Pro Bowls"},{k:"opoy",l:"Jugador Ofensivo del Año"},{k:"pw",l:"Victorias playoffs"},{k:"yds",l:"Yardas por pase"},{k:"td",l:"TD por pase"}];
+  document.getElementById("sumRows").innerHTML=`<div class="row"><div class="v l" style="color:var(--sam);font-family:var(--display)">SAM</div><div></div><div class="lbl">Suma de los 5</div><div></div><div class="v" style="color:var(--luis);font-family:var(--display)">LUIS</div></div>`+
+    sumCats.map(c=>{const a=sumOf("s",c.k),b=sumOf("l",c.k),m=Math.max(a,b)||1;
+    return `<div class="row"><div class="v l ${a>b?"win":""}">${fmt(a)}</div>
+      <div class="track l"><div class="fill" style="width:${a/m*100}%;background:var(--sam);opacity:${a>=b?1:.45}"></div></div>
+      <div class="lbl">${c.l}</div>
+      <div class="track"><div class="fill" style="width:${b/m*100}%;background:var(--luis);opacity:${b>=a?1:.45}"></div></div>
+      <div class="v ${b>a?"win":""}">${fmt(b)}</div></div>`}).join("");
+}
+function renderWeights(){
+  const el=document.getElementById("weights");
+  el.innerHTML=WEIGHTS.map(w=>`<label for="w-${w.k}"><span>${w.l}<b id="wv-${w.k}">${W[w.k]} pts</b></span><input type="range" id="w-${w.k}" min="0" max="${w.max}" step="1" value="${W[w.k]}"></label>`).join("")+
+    `<div style="display:flex;align-items:end"><button class="btn" id="wReset">Pesos por defecto</button></div>`;
+  WEIGHTS.forEach(w=>{document.getElementById("w-"+w.k).oninput=e=>{W[w.k]=+e.target.value;document.getElementById("wv-"+w.k).textContent=W[w.k]+" pts";store.set("weights",W);renderLegacy()}});
+  document.getElementById("wReset").onclick=()=>{W=Object.fromEntries(WEIGHTS.map(w=>[w.k,w.d]));store.set("weights",W);renderWeights();renderLegacy()};
+}
+const score=q=>WEIGHTS.reduce((a,w)=>a+q[w.k]*W[w.k],0);
+function renderLegacy(){
+  const all=[...ORDER.s,...ORDER.l].map(id=>score(QB[id])), mx=Math.max(...all)||1;
+  const tot={s:ORDER.s.reduce((a,id)=>a+score(QB[id]),0), l:ORDER.l.reduce((a,id)=>a+score(QB[id]),0)};
+  for(const s of ["s","l"]){
+    const lead=tot[s]>tot[s==="s"?"l":"s"];
+    document.getElementById(s==="s"?"lg-sam":"lg-luis").innerHTML=
+      `<h3>${OWN[s].name}${lead?' <span class="eyebrow" style="color:var(--win)">gana</span>':""}<span class="n">${tot[s]}</span></h3>`+
+      ORDER[s].map(id=>{const v=score(QB[id]);return `<div class="lgrow"><span>${QB[id].rank}. ${QB[id].short}</span><div class="track"><div class="fill" style="width:${v/mx*100}%;background:${OWN[s].c}"></div></div><span class="n">${v}</span></div>`}).join("");
+  }
+}
+
+/* Votes */
+let V=store.get("votes",{s:0,l:0,r:[null,null,null,null,null]});
+const vS=document.getElementById("votesSam"), vL=document.getElementById("votesLuis");
+function renderVotes(){
+  vS.value=V.s; vL.value=V.l;
+  const t=V.s+V.l, ps=t?V.s/t*100:50;
+  const a=document.getElementById("vs-s"), b=document.getElementById("vs-l");
+  a.style.width=ps+"%"; b.style.width=(100-ps)+"%";
+  a.textContent=t?`SAM ${Math.round(ps)}%`:"SAM"; b.textContent=t?`${Math.round(100-ps)}% LUIS`:"LUIS";
+  document.getElementById("rounds").innerHTML=[0,1,2,3,4].map(i=>{const r=V.r[i];
+    return `<div class="round"><button data-r="${i}" data-w="s" class="${r==="s"?"pick-s":""}" aria-pressed="${r==="s"}">${QB[ORDER.s[i]].short}</button><span class="tag">#${i+1}</span><button data-r="${i}" data-w="l" class="${r==="l"?"pick-l":""}" aria-pressed="${r==="l"}">${QB[ORDER.l[i]].short}</button></div>`}).join("");
+  document.querySelectorAll("#rounds button").forEach(b=>b.onclick=()=>{const i=+b.dataset.r;V.r[i]=V.r[i]===b.dataset.w?null:b.dataset.w;store.set("votes",V);renderVotes()});
+  document.getElementById("roundScore").textContent=`${V.r.filter(x=>x==="s").length} – ${V.r.filter(x=>x==="l").length}`;
+}
+vS.oninput=()=>{V.s=Math.max(0,parseInt(vS.value)||0);store.set("votes",V);renderVotes()};
+vL.oninput=()=>{V.l=Math.max(0,parseInt(vL.value)||0);store.set("votes",V);renderVotes()};
+document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{V[b.dataset.add]+=+b.dataset.n;store.set("votes",V);renderVotes()});
+document.getElementById("resetVotes").onclick=()=>{V={s:0,l:0,r:[null,null,null,null,null]};store.set("votes",V);renderVotes()};
+
+/* Routing */
+const VIEWS=["listas","duelo","legado","votacion"];
+function route(){
+  const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):"listas";
+  document.querySelectorAll("[data-panel]").forEach(p=>p.hidden=p.dataset.panel!==v);
+  document.querySelectorAll("nav a").forEach(a=>{if(a.dataset.view===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+}
+window.addEventListener("hashchange",route);
+
+renderTally(); renderLists(); fillSelects(); renderDuel(); renderSums(); renderWeights(); renderLegacy(); renderVotes(); route();
+</script>
+
+</body>
+</html>

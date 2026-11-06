@@ -1,0 +1,15 @@
+{
+  "title": { "en": "DB Coach" },
+  "summary": { "en": "Teaching tool I use to show my players how to read and adjust to football coverages. Choose a front, a coverage and an offensive formation to see alignments, zones and assignments. The interface is in Spanish." },
+  "kind": "web-app",
+  "status": "live",
+  "order": 2,
+  "builtWith": "Claude Code",
+  "stack": ["React", "TypeScript", "Vite", "Zustand", "Tailwind", "GitHub Pages"],
+  "skills": ["Frontend", "Automated tests", "CI/CD", "Domain expertise"],
+  "links": {
+    "demo": "https://samuelmtz1.github.io/db-coach-app/",
+    "code": "https://github.com/samuelmtz1/db-coach-app"
+  },
+  "repo": "db-coach-app"
+}

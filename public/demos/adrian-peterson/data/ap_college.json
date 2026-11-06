@@ -1,0 +1,41 @@
+[
+ {
+  "year": 2004,
+  "cls": "Freshman",
+  "gp": 13,
+  "att": 339,
+  "yds": 1925,
+  "avg": 5.7,
+  "td": 15,
+  "rec": 5,
+  "recyds": 12,
+  "rectd": 0,
+  "note": "Récord NCAA de novato · 2º en el Heisman"
+ },
+ {
+  "year": 2005,
+  "cls": "Sophomore",
+  "gp": 11,
+  "att": 221,
+  "yds": 1104,
+  "avg": 5.0,
+  "td": 14,
+  "rec": 9,
+  "recyds": 50,
+  "rectd": 0,
+  "note": "Jugó con tobillo lesionado"
+ },
+ {
+  "year": 2006,
+  "cls": "Junior",
+  "gp": 7,
+  "att": 188,
+  "yds": 1012,
+  "avg": 5.4,
+  "td": 12,
+  "rec": 10,
+  "recyds": 136,
+  "rectd": 1,
+  "note": "Clavícula rota; 77 yds y 2 TD en el Fiesta Bowl"
+ }
+]
