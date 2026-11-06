@@ -24,90 +24,139 @@ async function lastUpdate(repo?: string) {
 }
 
 const projects = await Promise.all(
-  visible.map(async (p) => ({ ...p.data, updated: await lastUpdate(p.data.repo) })),
+  visible.map(async (p, i) => ({
+    ...p.data,
+    id: p.id,
+    play: String(i + 1).padStart(2, "0"),
+    updated: await lastUpdate(p.data.repo),
+  })),
 );
-const statusLabel = { live: "Live", "in-development": "In development" };
+
+// Violet Table Decor and Pelicano Tours are shown as under construction.
+const underConstruction = new Set(["violet-table-decor", "pelicano-tours"]);
+const badge = (p: (typeof projects)[number]) =>
+  underConstruction.has(p.id) ? "Under construction" : p.status === "in-development" ? "In development" : null;
+
+const tilt = [-2.2, 1.8, -1.4, 2.4, -1.9, 1.6];
+const heroShots = projects.filter((p) => p.image).slice(0, 3);
+const expTilt = [-0.8, 0.9];
 ---
 
 <Base title={`${profile.name} | ${profile.headline}`} description={profile.intro}>
-  <header>
-    <h1>{profile.name}</h1>
-    <p><strong>{profile.headline}</strong></p>
-    <p>{profile.intro}</p>
-    <p class="muted">{profile.availability}</p>
-    <p class="links">
-      <a href={`mailto:${profile.contact.email}`}>Email</a>
-      <a href={profile.contact.linkedin}>LinkedIn</a>
-      <a href={profile.contact.github}>GitHub</a>
-    </p>
+  <header class="hero">
+    <div class="hero-block">
+      <span class="note">Portfolio 2026</span>
+      <h1>Samuel</h1>
+      <p class="phrase">{profile.headline}</p>
+      <p class="intro">{profile.intro}</p>
+      <p class="avail">{profile.availability}</p>
+    </div>
+    <div class="stack" aria-hidden="true">
+      {
+        heroShots.map((p) => (
+          <div class="photo">
+            <i class="clip" />
+            <span class="in">
+              <img src={p.image!.src} alt="" width={p.image!.width} height={p.image!.height} />
+            </span>
+          </div>
+        ))
+      }
+    </div>
   </header>
 
   <section aria-labelledby="projects">
-    <h2 id="projects">Projects</h2>
-    {
-      projects.map((p) => (
-        <article class="card">
-          {p.image && (
-            <img
-              class="shot"
-              src={p.image.src}
-              alt={p.image.alt}
-              width={p.image.width}
-              height={p.image.height}
-              loading="lazy"
-            />
-          )}
-          <h3>{p.title.en}</h3>
-          <p class="muted">
-            {statusLabel[p.status]} · Built with {p.builtWith}
-            {p.updated && ` · Updated ${p.updated}`}
-          </p>
-          <p>{p.summary.en}</p>
-          <p class="muted">{p.stack.join(" · ")}</p>
-          <p class="links">
-            {p.links.demo && <a href={p.links.demo}>Open demo</a>}
-            {p.links.code && <a href={p.links.code}>View code</a>}
-          </p>
-        </article>
-      ))
-    }
+    <h2 class="sec" id="projects">Projects</h2>
+    <div class="grid">
+      {
+        projects.map((p, i) => (
+          <figure class="card">
+            <div class="photo" style={`--r:${tilt[i % tilt.length]}deg`}>
+              <i class="clip" />
+              <span class="in">
+                {p.image && (
+                  <img
+                    src={p.image.src}
+                    alt={p.image.alt}
+                    width={p.image.width}
+                    height={p.image.height}
+                    loading="lazy"
+                  />
+                )}
+                <figcaption>
+                  <div class="meta">
+                    <span class="px">Play {p.play}</span>
+                    {badge(p) && <span class="build">{badge(p)}</span>}
+                  </div>
+                  <h3>{p.title.en}</h3>
+                  <p class="desc">{p.summary.en}</p>
+                  <p class="built">
+                    Built with {p.builtWith}
+                    {p.updated && ` · Updated ${p.updated}`}
+                  </p>
+                  <p class="built">{p.stack.join(" · ")}</p>
+                  <p class="links">
+                    {p.links.demo && <a href={p.links.demo}>Open demo</a>}
+                    {p.links.code && <a href={p.links.code}>View code</a>}
+                  </p>
+                </figcaption>
+              </span>
+            </div>
+          </figure>
+        ))
+      }
+    </div>
   </section>
 
   <section aria-labelledby="content">
-    <h2 id="content">Content</h2>
-    <article class="card">
-      <h3>{profile.content.title}</h3>
-      <p>{profile.content.summary}</p>
-      <p><a href={profile.content.url}>Watch on YouTube</a></p>
-    </article>
+    <aside class="cn">
+      <h2 id="content">{profile.content.title}</h2>
+      <div>
+        <p>{profile.content.summary}</p>
+        <a href={profile.content.url}>Watch on YouTube</a>
+      </div>
+    </aside>
   </section>
 
   <section aria-labelledby="skills">
-    <h2 id="skills">Skills</h2>
-    {
-      profile.skills.map((s) => (
-        <p>
-          <strong>{s.group}:</strong> {s.items.join(", ")}
-        </p>
-      ))
-    }
+    <h2 class="sec" id="skills">Skills</h2>
+    <dl style="margin:0">
+      {
+        profile.skills.map((s) => (
+          <div class="skill-row">
+            <dt>{s.group}</dt>
+            <dd style="margin:0">
+              <ul class="chips">{s.items.map((item) => <li>{item}</li>)}</ul>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
   </section>
 
   <section aria-labelledby="experience">
-    <h2 id="experience">Experience</h2>
-    {
-      profile.experience.map((e) => (
-        <article class="card">
-          <h3>{e.title}</h3>
-          <p class="muted">
-            {e.company} · {e.dates}
-          </p>
-          <ul>{e.points.map((point) => <li>{point}</li>)}</ul>
-        </article>
-      ))
-    }
-    <h3>Education</h3>
-    <ul>{profile.education.map((item) => <li>{item}</li>)}</ul>
-    <p>{profile.other}</p>
+    <h2 class="sec" id="experience">Experience</h2>
+    <div class="exp">
+      {
+        profile.experience.map((e, i) => (
+          <article class="paper-card" style={`--r:${expTilt[i % expTilt.length]}deg`}>
+            <h3>{e.title}</h3>
+            <p class="when">{e.company} · {e.dates}</p>
+            <ul>{e.points.map((point) => <li>{point}</li>)}</ul>
+          </article>
+        ))
+      }
+    </div>
+    <div class="edu">
+      <h3>Education</h3>
+      <ul>{profile.education.map((item) => <li>{item}</li>)}</ul>
+      <p class="other">{profile.other}</p>
+    </div>
   </section>
+
+  <footer class="contact">
+    <a href={`mailto:${profile.contact.email}`}>Email</a>
+    <a href={profile.contact.linkedin}>LinkedIn</a>
+    <a href={profile.contact.github}>GitHub</a>
+  </footer>
 </Base>

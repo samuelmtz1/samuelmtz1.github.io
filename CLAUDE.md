@@ -44,5 +44,8 @@ Lo público de contacto es: correo, LinkedIn, GitHub y "Mexico City, remote, con
 - **Revisión:** `npm run build` corre `scripts/check-public.mjs`, que falla si encuentra datos privados o secretos.
 - **Orden:** `order` y `pinned` en cada proyecto. Las puntuaciones viven fuera de este repo.
 
+## Identidad visual
+La guía visual (brief, referencias y prompt de fases) es privada y vive en `../Resume and job/reports/project-audits/identidad-visual-brief.md`. Léela antes de tocar el diseño.
+
 ## Al lanzar
 Quita la etiqueta `noindex` de `src/layouts/Base.astro` y el bloqueo de `public/robots.txt`.
