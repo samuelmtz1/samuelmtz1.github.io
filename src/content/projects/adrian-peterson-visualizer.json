@@ -1,11 +1,31 @@
 {
-  "title": { "en": "Adrian Peterson: All Day" },
-  "summary": { "en": "Interactive career visualizer for a YouTube video: high school, college and NFL, plus a head-to-head comparison against 10 running backs. Every dataset lists its sources, and a validation script checks that the numbers add up. The interface is in Spanish." },
+  "title": {
+    "en": "Adrian Peterson: All Day"
+  },
+  "summary": {
+    "en": "Interactive career visualizer for a YouTube video: high school, college and NFL, plus a head-to-head comparison against 10 running backs. Every dataset lists its sources, and a validation script checks that the numbers add up. The interface is in Spanish."
+  },
   "kind": "content-tool",
   "status": "live",
-  "order": 1,
+  "order": 2,
   "builtWith": "Claude",
-  "stack": ["JavaScript", "d3", "Python data validation"],
-  "skills": ["Data visualization", "Content production", "Research with sources"],
-  "links": { "demo": "/demos/adrian-peterson/" }
+  "stack": [
+    "JavaScript",
+    "d3",
+    "Python data validation"
+  ],
+  "skills": [
+    "Data visualization",
+    "Content production",
+    "Research with sources"
+  ],
+  "links": {
+    "demo": "/demos/adrian-peterson/"
+  },
+  "image": {
+    "src": "/images/projects/adrian-peterson.jpg",
+    "alt": "Adrian Peterson career visualizer with headline stat cards and tabs for his NFL, college and awards data.",
+    "width": 1280,
+    "height": 800
+  }
 }

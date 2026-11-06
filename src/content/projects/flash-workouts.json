@@ -1,15 +1,35 @@
 {
-  "title": { "en": "Flash Workouts" },
-  "summary": { "en": "Installable gym routine app that works offline. It has no accounts or servers, so your data stays on your device. The interface is in Spanish." },
+  "title": {
+    "en": "Flash Workouts"
+  },
+  "summary": {
+    "en": "Installable gym routine app that works offline. It has no accounts or servers, so your data stays on your device. The interface is in Spanish."
+  },
   "kind": "web-app",
   "status": "in-development",
-  "order": 4,
+  "order": 5,
   "builtWith": "Claude Code",
-  "stack": ["TypeScript", "Expo", "React Native Web", "Workbox (PWA)", "Cloudflare Workers"],
-  "skills": ["Offline-first apps", "CI/CD", "Web security headers"],
+  "stack": [
+    "TypeScript",
+    "Expo",
+    "React Native Web",
+    "Workbox (PWA)",
+    "Cloudflare Workers"
+  ],
+  "skills": [
+    "Offline-first apps",
+    "CI/CD",
+    "Web security headers"
+  ],
   "links": {
     "demo": "https://flash-workouts.samymartinez01.workers.dev",
     "code": "https://github.com/samuelmtz1/flash-workouts"
   },
-  "repo": "flash-workouts"
+  "repo": "flash-workouts",
+  "image": {
+    "src": "/images/projects/flash-workouts.jpg",
+    "alt": "Flash Workouts home screen with a side menu and a message to load a first routine.",
+    "width": 1280,
+    "height": 800
+  }
 }

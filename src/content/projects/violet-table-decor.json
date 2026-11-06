@@ -1,12 +1,31 @@
 {
-  "title": { "en": "Violet Table Decor" },
-  "summary": { "en": "Website and internal quoting tool for a real event-styling business: a public gallery and rental catalog, plus a password-protected cost calculator that prepares client proposals. Under construction." },
+  "title": {
+    "en": "Violet Table Decor"
+  },
+  "summary": {
+    "en": "Website and internal quoting tool for a real event-styling business: a public gallery and rental catalog, plus a password-protected cost calculator that prepares client proposals. Under construction."
+  },
   "kind": "client-work",
   "status": "in-development",
   "order": 6,
   "builtWith": "Antigravity",
-  "stack": ["Python", "Streamlit", "pandas"],
-  "skills": ["Client work", "Business process tools"],
-  "links": {},
-  "repo": "violet-table-decor-app"
+  "stack": [
+    "Python",
+    "Streamlit",
+    "pandas"
+  ],
+  "skills": [
+    "Client work",
+    "Business process tools"
+  ],
+  "links": {
+    "demo": "https://violet-tabledecor.streamlit.app"
+  },
+  "repo": "violet-table-decor-app",
+  "image": {
+    "src": "/images/projects/violet-table-decor.jpg",
+    "alt": "Violet Table Decor home page with a purple banner, service highlights and side navigation.",
+    "width": 1280,
+    "height": 800
+  }
 }

@@ -1,11 +1,33 @@
 {
-  "title": { "en": "Pelicano Tours" },
-  "summary": { "en": "Bilingual website for a real tour operator in Baja California Sur, with tour descriptions, an availability calendar and reservations. Under construction: data and payments are simulated for now." },
+  "title": {
+    "en": "Pelicano Tours"
+  },
+  "summary": {
+    "en": "Bilingual website for a real tour operator in Baja California Sur, with tour descriptions, an availability calendar and reservations. Under construction: data and payments are simulated for now."
+  },
   "kind": "client-work",
   "status": "in-development",
   "order": 7,
   "builtWith": "Claude Code",
-  "stack": ["Next.js", "React", "TypeScript", "next-intl", "Tailwind", "Playwright", "Vitest"],
-  "skills": ["Client work", "Internationalization", "Automated tests"],
-  "links": {}
+  "stack": [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "next-intl",
+    "Tailwind",
+    "Playwright",
+    "Vitest"
+  ],
+  "skills": [
+    "Client work",
+    "Internationalization",
+    "Automated tests"
+  ],
+  "links": {},
+  "image": {
+    "src": "/images/projects/pelicano-tours.jpg",
+    "alt": "Pelicano Tours home page with a pelican logo and wave-shaped sections for tours, contact and payment link. Sample site.",
+    "width": 1280,
+    "height": 800
+  }
 }

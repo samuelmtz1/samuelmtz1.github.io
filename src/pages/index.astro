@@ -47,6 +47,16 @@ const statusLabel = { live: "Live", "in-development": "In development" };
     {
       projects.map((p) => (
         <article class="card">
+          {p.image && (
+            <img
+              class="shot"
+              src={p.image.src}
+              alt={p.image.alt}
+              width={p.image.width}
+              height={p.image.height}
+              loading="lazy"
+            />
+          )}
           <h3>{p.title.en}</h3>
           <p class="muted">
             {statusLabel[p.status]} · Built with {p.builtWith}

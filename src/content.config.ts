@@ -11,6 +11,9 @@ const projects = defineCollection({
     summary: localized,
     kind: z.enum(["web-app", "client-work", "content-tool"]),
     status: z.enum(["live", "in-development"]),
+    image: z
+      .object({ src: z.string(), alt: z.string(), width: z.number(), height: z.number() })
+      .optional(),
     // Display order only. Scores stay in the private audits.
     order: z.number().int(),
     pinned: z.boolean().default(false),

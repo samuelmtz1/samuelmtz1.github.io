@@ -1,11 +1,30 @@
 {
-  "title": { "en": "QB Draft 2000+" },
-  "summary": { "en": "On-screen debate tool for a YouTube episode that compares two Top 5 quarterback lists built in draft mode, with head-to-head stats, a legacy score with adjustable weights and a vote tracker. The interface is in Spanish." },
+  "title": {
+    "en": "QB Draft 2000+"
+  },
+  "summary": {
+    "en": "On-screen debate tool for a YouTube episode that compares two Top 5 quarterback lists built in draft mode, with head-to-head stats, a legacy score with adjustable weights and a vote tracker. The interface is in Spanish."
+  },
   "kind": "content-tool",
   "status": "live",
-  "order": 5,
+  "order": 4,
   "builtWith": "Claude",
-  "stack": ["JavaScript", "HTML", "CSS"],
-  "skills": ["Content production", "Interface design for video"],
-  "links": { "demo": "/demos/qb-draft/" }
+  "stack": [
+    "JavaScript",
+    "HTML",
+    "CSS"
+  ],
+  "skills": [
+    "Content production",
+    "Interface design for video"
+  ],
+  "links": {
+    "demo": "/demos/qb-draft/"
+  },
+  "image": {
+    "src": "/images/projects/qb-draft.jpg",
+    "alt": "Side-by-side Top 5 quarterback lists from two draft players, with Super Bowl and MVP totals.",
+    "width": 1280,
+    "height": 800
+  }
 }
