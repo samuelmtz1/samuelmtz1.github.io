@@ -29,5 +29,10 @@
     "alt": "Pelicano Tours home page with a pelican logo and wave-shaped sections for tours, contact and payment link. Sample site.",
     "width": 1280,
     "height": 800
-  }
+  },
+  "folders": [
+    "client",
+    "web"
+  ],
+  "access": "Link at launch"
 }

@@ -32,5 +32,9 @@
     "alt": "YouTube Studio view of Gridiron Hub with a teleprompter mode, suggested titles and script sections.",
     "width": 1280,
     "height": 455
-  }
+  },
+  "folders": [
+    "media"
+  ],
+  "access": "Team access only"
 }

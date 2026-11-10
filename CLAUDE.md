@@ -43,6 +43,8 @@ Lo público de contacto es: correo, LinkedIn, GitHub y "Mexico City, remote, con
 - **Actions:** publica el sitio y actualiza solo datos básicos, como la fecha del último cambio.
 - **Revisión:** `npm run build` corre `scripts/check-public.mjs`, que falla si encuentra datos privados o secretos.
 - **Orden:** `order` y `pinned` en cada proyecto. Las puntuaciones viven fuera de este repo.
+- **Fuentes:** las de Google Fonts se alojan en `public/fonts/`. Tanker, Clash Display y Sharpie (Fontshare) se cargan desde su API en `Base.astro` y nunca se suben al repo, porque su licencia lo prohíbe; `check-public.mjs` falla si aparecen.
+- **Build local:** la ruta del proyecto tiene dos puntos (`APPS : WEB`), que rompen el `PATH` de `npm run build`. En local corre `npm run check:public && ./node_modules/.bin/astro build`.
 
 ## Identidad visual
 La guía visual (brief, referencias y prompt de fases) es privada y vive en `../Resume and job/reports/project-audits/identidad-visual-brief.md`. Léela antes de tocar el diseño.

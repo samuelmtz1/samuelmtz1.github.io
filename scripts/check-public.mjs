@@ -38,6 +38,12 @@ for (const path of files(".")) {
   }
 }
 
+// Fontshare fonts (ITF Free Font License) may not be distributed from a public repo.
+// They load from the Fontshare API in Base.astro instead.
+for (const name of readdirSync(join("public", "fonts"))) {
+  if (/tanker|clash|sharpie/i.test(name)) problems.push(`public/fonts/${name}: Fontshare font file`);
+}
+
 if (problems.length) {
   console.error("Public content check failed:\n" + problems.map((p) => `  ${p}`).join("\n"));
   process.exit(1);

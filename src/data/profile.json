@@ -2,6 +2,11 @@
   "name": "Samuel Martinez Jimenez",
   "headline": "AI-native builder",
   "intro": "I build web apps and content tools by directing AI coding tools, then reviewing and correcting what they produce. I also bring 3+ years of client-facing work and native English and Spanish.",
+  "hero": {
+    "title": "I build web apps and content tools by",
+    "highlight": "directing AI.",
+    "text": "I direct AI coding tools, then review and correct what they produce. I also bring 3+ years of client-facing work and native English and Spanish."
+  },
   "availability": "Mexico City · Remote · Contractor · Worldwide",
   "contact": {
     "email": "samymartinez01@gmail.com",
@@ -14,27 +19,91 @@
     "url": "https://youtube.com/@nickel-and-dime-mx"
   },
   "skills": [
-    { "group": "AI-assisted building", "items": ["Claude Code", "Antigravity", "Prompt writing", "Reviewing and correcting AI output"] },
-    { "group": "Built with: web", "items": ["TypeScript", "React", "Next.js", "Astro", "Vite", "Tailwind", "Expo", "PWA (Workbox)"] },
-    { "group": "Built with: data and backend", "items": ["Python", "FastAPI", "pandas", "DuckDB", "Streamlit", "d3"] },
-    { "group": "Built with: delivery", "items": ["Git and GitHub", "GitHub Actions", "Automated tests", "Vercel", "Render", "Cloudflare Workers"] },
-    { "group": "Client work", "items": ["Customer success", "Account management", "Salesforce CRM", "Excel and PowerPoint reporting"] },
-    { "group": "Languages", "items": ["English: native-level (EF C2)", "Spanish: native", "English-Spanish translation"] }
+    {
+      "group": "AI-assisted building",
+      "items": [
+        "Claude Code",
+        "Antigravity",
+        "Prompt writing",
+        "Reviewing and correcting AI output"
+      ]
+    },
+    {
+      "group": "Built with: web",
+      "items": [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Astro",
+        "Vite",
+        "Tailwind",
+        "Expo",
+        "PWA (Workbox)"
+      ]
+    },
+    {
+      "group": "Built with: data and backend",
+      "items": [
+        "Python",
+        "FastAPI",
+        "pandas",
+        "DuckDB",
+        "Streamlit",
+        "d3"
+      ]
+    },
+    {
+      "group": "Built with: delivery",
+      "items": [
+        "Git and GitHub",
+        "GitHub Actions",
+        "Automated tests",
+        "Vercel",
+        "Render",
+        "Cloudflare Workers"
+      ]
+    },
+    {
+      "group": "Client work",
+      "items": [
+        "Customer success",
+        "Account management",
+        "Salesforce CRM",
+        "Excel and PowerPoint reporting"
+      ]
+    },
+    {
+      "group": "Languages",
+      "items": [
+        "English: native-level (EF C2)",
+        "Spanish: native",
+        "English-Spanish translation"
+      ]
+    }
   ],
   "experience": [
     {
       "title": "Co-Founder (Account Management & B2B Operations)",
       "company": "M&J Solutions, Paper & Packaging Supply",
       "dates": "05/2025 – Present",
-      "points": ["Manage 3–4 recurring B2B clients, from quotations and orders to delivery coordination.", "Moved 50+ tons of paper in 2026 across 5–6 deals."]
+      "points": [
+        "Manage 3–4 recurring B2B clients, from quotations and orders to delivery coordination.",
+        "Moved 50+ tons of paper in 2026 across 5–6 deals."
+      ]
     },
     {
       "title": "Customer Satisfaction Representative (Customer Success & Post-Sales Support)",
       "company": "Volkswagen Auto Haus",
       "dates": "08/2023 – 05/2025",
-      "points": ["Handled 35+ customer contacts daily in English and Spanish.", "Kept monthly customer satisfaction above 94%, logging every case in Salesforce CRM."]
+      "points": [
+        "Handled 35+ customer contacts daily in English and Spanish.",
+        "Kept monthly customer satisfaction above 94%, logging every case in Salesforce CRM."
+      ]
     }
   ],
-  "education": ["Bachelor's in Entertainment & Communication Business Administration, UNITEC (in progress, expected early 2028)", "EF English Proficiency Certification, Level C2"],
+  "education": [
+    "Bachelor's in Entertainment & Communication Business Administration, UNITEC (in progress, expected early 2028)",
+    "EF English Proficiency Certification, Level C2"
+  ],
   "other": "Football coach and lifelong competitive player."
 }

@@ -29,6 +29,10 @@ const projects = defineCollection({
       .default({}),
     // Public GitHub repo used to show the last update date at build time.
     repo: z.string().optional(),
+    // Folder tabs the project appears in. Defaults to one folder based on `kind`.
+    folders: z.array(z.enum(["web", "media", "client"])).optional(),
+    // Shown instead of links when a project has none to share yet.
+    access: z.string().optional(),
   }),
 });
 

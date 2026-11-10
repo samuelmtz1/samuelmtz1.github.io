@@ -7,6 +7,13 @@ interface Props {
   description: string;
 }
 const { title, description } = Astro.props;
+
+// Fontshare (ITF Free Font License): free to use on this site, but the files
+// may not live in a public repo, so they load from the Fontshare API.
+// The API returns one family per request.
+const fontshare = ["tanker@400", "clash-display@500,600", "sharpie@700"].map(
+  (f) => `https://api.fontshare.com/v2/css?f[]=${f}&display=swap`,
+);
 ---
 
 <!doctype html>
@@ -17,19 +24,15 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <!-- Remove at launch (stage 5), together with public/robots.txt. -->
     <meta name="robots" content="noindex" />
-    <meta name="theme-color" content="#1b5fb5" />
-    <link rel="preload" href="/fonts/gasoek-one-normal-400.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#f7f5ef" />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    {fontshare.map((href) => <link rel="stylesheet" href={href} />)}
+    <link rel="preload" href="/images/patch.webp" as="image" fetchpriority="high" />
     <title>{title}</title>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <!-- Hand-cut edge for large display type. -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-      <filter id="rough">
-        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n" />
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" />
-      </filter>
-    </svg>
-    <main id="main"><div class="wrap"><slot /></div></main>
+    <div class="site"><slot /></div>
   </body>
 </html>

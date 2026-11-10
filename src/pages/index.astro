@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import profile from "../data/profile.json";
 
+type Folder = "web" | "media" | "client";
+
 const all = await getCollection("projects");
 const visible = all
   .filter((p) => !p.data.hidden)
@@ -23,140 +25,265 @@ async function lastUpdate(repo?: string) {
   }
 }
 
+const kindLabel = { "web-app": "Web app", "content-tool": "Content tool", "client-work": "Client work" } as const;
+const kindFolder: Record<keyof typeof kindLabel, Folder> = { "web-app": "web", "content-tool": "media", "client-work": "client" };
+
+// Violet Table Decor and Pelicano Tours are shown as under construction.
+const underConstruction = new Set(["violet-table-decor", "pelicano-tours"]);
+
 const projects = await Promise.all(
   visible.map(async (p, i) => ({
     ...p.data,
     id: p.id,
-    play: String(i + 1).padStart(2, "0"),
+    n: String(i + 1).padStart(2, "0"),
+    folders: ["all", ...(p.data.folders ?? [kindFolder[p.data.kind]])],
+    status: underConstruction.has(p.id)
+      ? { label: "Under construction", wip: true }
+      : p.data.status === "in-development"
+        ? { label: "In development", wip: true }
+        : { label: "Live", wip: false },
     updated: await lastUpdate(p.data.repo),
   })),
 );
 
-// Violet Table Decor and Pelicano Tours are shown as under construction.
-const underConstruction = new Set(["violet-table-decor", "pelicano-tours"]);
-const badge = (p: (typeof projects)[number]) =>
-  underConstruction.has(p.id) ? "Under construction" : p.status === "in-development" ? "In development" : null;
+const folders = [
+  { key: "all", label: "All files", color: "var(--lime)" },
+  { key: "web", label: "Web apps", color: "var(--aqua)" },
+  { key: "media", label: "Data & media", color: "var(--indigo)", dark: true },
+  { key: "client", label: "Client work", color: "var(--yellow)" },
+];
 
-const tilt = [-2.2, 1.8, -1.4, 2.4, -1.9, 1.6];
-const heroShots = projects.filter((p) => p.image).slice(0, 3);
-const expTilt = [-0.8, 0.9];
+// "Built with" groups go in the toolbox; client skills and languages go with experience.
+const builtGroups = profile.skills.filter((s) => s.group === "AI-assisted building" || s.group.startsWith("Built with"));
+const otherGroups = profile.skills.filter((s) => !builtGroups.includes(s));
+const stickerColors = ["var(--lime)", "var(--aqua)", "var(--yellow)", "var(--pink)"];
+const tilt = (i: number) => [-1.5, 1, -0.5, 1.5, -1, 0.5][i % 6];
+
+// "Co-Founder (Account Management & B2B Operations)" -> role + descriptor.
+const splitTitle = (t: string) => {
+  const m = t.match(/^(.*?) \((.*)\)$/);
+  return m ? { role: m[1], area: m[2] } : { role: t, area: null };
+};
+const company = (c: string) => c.split(",")[0];
 ---
 
 <Base title={`${profile.name} | ${profile.headline}`} description={profile.intro}>
-  <header class="hero">
-    <div class="hero-block">
-      <span class="note">Portfolio 2026</span>
-      <h1>Samuel</h1>
-      <p class="phrase">{profile.headline}</p>
-      <p class="intro">{profile.intro}</p>
-      <p class="avail">{profile.availability}</p>
-    </div>
-    <div class="stack" aria-hidden="true">
-      {
-        heroShots.map((p) => (
-          <div class="photo">
-            <i class="clip" />
-            <span class="in">
-              <img src={p.image!.src} alt="" width={p.image!.width} height={p.image!.height} />
-            </span>
-          </div>
-        ))
-      }
-    </div>
+  <header class="bar">
+    <a class="mark" href="#main" aria-label="Sam, home">SAM <span class="xo" aria-hidden="true"><span>×</span><span>○</span></span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#files">Files</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="btn sm" href="#contact">Let's talk</a>
   </header>
 
-  <section aria-labelledby="projects">
-    <h2 class="sec" id="projects">Projects</h2>
-    <div class="grid">
-      {
-        projects.map((p, i) => (
-          <figure class="card">
-            <div class="photo" style={`--r:${tilt[i % tilt.length]}deg`}>
-              <i class="clip" />
-              <span class="in">
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="micro">Portfolio '26 · Mexico City · Remote, worldwide</p>
+      <div class="pills"><span class="pill l">{profile.headline}</span><span class="pill a">Open to contract work</span></div>
+      <div class="patch-box">
+        <img
+          class="patch"
+          src="/images/patch.webp"
+          width="1100"
+          height="627"
+          fetchpriority="high"
+          alt="Red embroidered name patch that reads Hello, I am Samuel in multicolor chenille letters."
+        />
+      </div>
+      <h1 id="hero-title">{profile.hero.title} <mark>{profile.hero.highlight}</mark></h1>
+      <p class="lede">{profile.hero.text}</p>
+      <a class="btn" href="#files">Open the files ↓</a>
+      <div class="hero-foot micro">
+        <span>Built with Claude Code &amp; Antigravity</span>
+        <span>{projects.length} project files inside</span>
+      </div>
+    </section>
+
+    <section class="sec" id="files" aria-labelledby="files-title">
+      <div class="sec-head">
+        <div><p class="micro">01 / Project files</p><h2 id="files-title">Selected work<span>.</span></h2></div>
+        <p class="hand" aria-hidden="true">Real projects, real players, real clients</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Project folders">
+        {
+          folders.map((f, i) => (
+            <button
+              class:list={["tab", { dark: f.dark }]}
+              type="button"
+              role="tab"
+              id={`tab-${f.key}`}
+              aria-selected={i === 0 ? "true" : "false"}
+              aria-controls="folder"
+              tabindex={i === 0 ? 0 : -1}
+              data-folder={f.key}
+              data-label={`Folder ${String(i + 1).padStart(2, "0")} / ${f.label}`}
+              style={`--c:${f.color}`}
+            >
+              {String(i + 1).padStart(2, "0")} · {f.label}
+            </button>
+          ))
+        }
+      </div>
+      <div class="folder" id="folder" role="tabpanel" aria-labelledby="tab-all" tabindex="0">
+        <div class="folder-meta micro">
+          <span id="folder-title">Folder 01 / All files</span>
+          <span class="count" id="folder-count">{String(projects.length).padStart(2, "0")} files</span>
+        </div>
+        <ul class="files">
+          {
+            projects.map((p, i) => (
+              <li class:list={["file", { wide: i === 0 }]} data-folders={p.folders.join(" ")}>
                 {p.image && (
-                  <img
-                    src={p.image.src}
-                    alt={p.image.alt}
-                    width={p.image.width}
-                    height={p.image.height}
-                    loading="lazy"
-                  />
+                  <div class="shot">
+                    <span class:list={["tape", { r: i % 2 }]} aria-hidden="true" />
+                    <img src={p.image.src} alt={p.image.alt} width={p.image.width} height={p.image.height} loading="lazy" />
+                  </div>
                 )}
-                <figcaption>
-                  <div class="meta">
-                    <span class="px">Play {p.play}</span>
-                    {badge(p) && <span class="build">{badge(p)}</span>}
+                <div class="file-copy">
+                  <div class="file-top micro">
+                    <span>File {p.n} · {kindLabel[p.kind]}</span>
+                    <span class:list={["status", { wip: p.status.wip }]}>{p.status.label}</span>
                   </div>
                   <h3>{p.title.en}</h3>
-                  <p class="desc">{p.summary.en}</p>
-                  <p class="built">
-                    Built with {p.builtWith}
-                    {p.updated && ` · Updated ${p.updated}`}
-                  </p>
-                  <p class="built">{p.stack.join(" · ")}</p>
-                  <p class="links">
-                    {p.links.demo && <a href={p.links.demo}>Open demo</a>}
-                    {p.links.code && <a href={p.links.code}>View code</a>}
-                  </p>
-                </figcaption>
-              </span>
-            </div>
-          </figure>
-        ))
-      }
-    </div>
-  </section>
-
-  <section aria-labelledby="content">
-    <aside class="cn">
-      <h2 id="content">{profile.content.title}</h2>
-      <div>
-        <p>{profile.content.summary}</p>
-        <a href={profile.content.url}>Watch on YouTube</a>
+                  <p>{p.summary.en}</p>
+                  <p class="meta">Built with {p.builtWith}{p.updated && ` · Updated ${p.updated}`}</p>
+                  <ul class="chips">{p.stack.map((s) => <li>{s}</li>)}</ul>
+                  <div class="flinks">
+                    {p.links.demo && <a class="flink" href={p.links.demo}>Open demo ↗</a>}
+                    {p.links.code && <a class="flink" href={p.links.code}>View code ↗</a>}
+                    {!p.links.demo && !p.links.code && p.access && <span class="flink off">{p.access}</span>}
+                  </div>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="folder-foot micro"><span>× built with AI · ○ reviewed by me</span><span>Filed 2026</span></div>
       </div>
-    </aside>
-  </section>
+    </section>
 
-  <section aria-labelledby="skills">
-    <h2 class="sec" id="skills">Skills</h2>
-    <dl style="margin:0">
-      {
-        profile.skills.map((s) => (
-          <div class="skill-row">
-            <dt>{s.group}</dt>
-            <dd style="margin:0">
-              <ul class="chips">{s.items.map((item) => <li>{item}</li>)}</ul>
-            </dd>
-          </div>
-        ))
-      }
-    </dl>
-  </section>
+    <section class="sec skills" id="skills" aria-labelledby="skills-title">
+      <div class="sec-head">
+        <div><p class="micro">02 / Toolbox</p><h2 id="skills-title">Built with<span>.</span></h2></div>
+        <p class="hand" aria-hidden="true">Every sticker has a project behind it</p>
+      </div>
+      <div class="groups">
+        {
+          builtGroups.map((g, gi) => (
+            <div class="group">
+              <h3 class="micro">{g.group.replace(/^Built with: /, "")}</h3>
+              <ul class="stickers">
+                {g.items.map((item, i) => (
+                  <li class="stk" style={`--c:${stickerColors[gi % stickerColors.length]};--r:${tilt(i + gi)}deg`}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
 
-  <section aria-labelledby="experience">
-    <h2 class="sec" id="experience">Experience</h2>
-    <div class="exp">
-      {
-        profile.experience.map((e, i) => (
-          <article class="paper-card" style={`--r:${expTilt[i % expTilt.length]}deg`}>
-            <h3>{e.title}</h3>
-            <p class="when">{e.company} · {e.dates}</p>
-            <ul>{e.points.map((point) => <li>{point}</li>)}</ul>
-          </article>
-        ))
-      }
-    </div>
-    <div class="edu">
-      <h3>Education</h3>
-      <ul>{profile.education.map((item) => <li>{item}</li>)}</ul>
-      <p class="other">{profile.other}</p>
-    </div>
-  </section>
+    <section class="sec" id="experience" aria-labelledby="experience-title">
+      <div class="sec-head">
+        <div><p class="micro">03 / Experience</p><h2 id="experience-title">The other playbook<span>.</span></h2></div>
+      </div>
+      <div class="cards">
+        {
+          profile.experience.map((e, i) => {
+            const t = splitTitle(e.title);
+            return (
+              <article class="index" style={`--r:${[-0.6, 0.5][i % 2]}deg`}>
+                <p class="micro">{e.dates}</p>
+                <h3>{t.role}</h3>
+                <p class="co">{company(e.company)}{t.area && ` · ${t.area}`}</p>
+                <ul>{e.points.map((pt) => <li>{pt}</li>)}</ul>
+              </article>
+            );
+          })
+        }
+        <article class="index ch" style="--r:-0.4deg">
+          <p class="micro">Co-hosted channel</p>
+          <h3>{profile.content.title}</h3>
+          <p class="co">American football on YouTube</p>
+          <p>{profile.content.summary}</p>
+          <a class="flink" href={profile.content.url}>Watch on YouTube ↗</a>
+        </article>
+      </div>
+      <div class="notes">
+        <div>
+          <h3 class="micro">Education</h3>
+          <ul>{profile.education.map((item) => <li>{item}</li>)}</ul>
+        </div>
+        {
+          otherGroups.map((g) => (
+            <div>
+              <h3 class="micro">{g.group}</h3>
+              <ul>{g.items.map((item) => <li>{item}</li>)}</ul>
+            </div>
+          ))
+        }
+        <div>
+          <h3 class="micro">Off the screen</h3>
+          <ul><li>{profile.other}</li></ul>
+        </div>
+      </div>
+    </section>
 
-  <footer class="contact">
-    <a href={`mailto:${profile.contact.email}`}>Email</a>
-    <a href={profile.contact.linkedin}>LinkedIn</a>
-    <a href={profile.contact.github}>GitHub</a>
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <p class="micro">04 / Contact</p>
+      <h2 id="contact-title">Have a good problem? Let's build it.</h2>
+      <p>{profile.availability}. Email is the fastest way to reach me.</p>
+      <a class="btn lime" href={`mailto:${profile.contact.email}`}>{profile.contact.email} ↗</a>
+      <div class="links">
+        <a href={profile.contact.linkedin}>LinkedIn ↗</a>
+        <a href={profile.contact.github}>GitHub ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot micro">
+    <span>© 2026 {profile.name}</span>
+    <span>× built with AI · ○ checked by hand</span>
   </footer>
 </Base>
+
+<script>
+  // Folder tabs: filter project files by category. Without JS every file stays visible.
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+  const folder = document.getElementById("folder")!;
+  const files = [...folder.querySelectorAll<HTMLElement>(".file")];
+  const title = document.getElementById("folder-title")!;
+  const count = document.getElementById("folder-count")!;
+
+  function open(tab: HTMLButtonElement) {
+    const key = tab.dataset.folder!;
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
+    });
+    folder.setAttribute("aria-labelledby", tab.id);
+    folder.style.setProperty("--fc", tab.style.getPropertyValue("--c"));
+    folder.classList.toggle("dark", tab.classList.contains("dark"));
+    title.textContent = tab.dataset.label!;
+    let shown = 0;
+    files.forEach((f) => {
+      const match = f.dataset.folders!.split(" ").includes(key);
+      f.hidden = !match;
+      f.classList.toggle("wide", match && shown === 0);
+      if (match) shown++;
+    });
+    count.textContent = `${String(shown).padStart(2, "0")} files`;
+  }
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => open(tab));
+    tab.addEventListener("keydown", (e) => {
+      const next = { ArrowRight: (i + 1) % tabs.length, ArrowLeft: (i - 1 + tabs.length) % tabs.length, Home: 0, End: tabs.length - 1 }[e.key];
+      if (next === undefined) return;
+      e.preventDefault();
+      open(tabs[next]);
+      tabs[next].focus();
+    });
+  });
+</script>

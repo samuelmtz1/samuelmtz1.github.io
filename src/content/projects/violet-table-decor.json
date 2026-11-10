@@ -27,5 +27,9 @@
     "alt": "Violet Table Decor home page with a purple banner, service highlights and side navigation.",
     "width": 1280,
     "height": 800
-  }
+  },
+  "folders": [
+    "client",
+    "web"
+  ]
 }
